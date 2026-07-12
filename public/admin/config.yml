@@ -1,0 +1,26 @@
+backend:
+  name: git-gateway
+  branch: main # Branch to update (optional; defaults to master)
+local_backend: true
+
+# This line should *not* be indented
+publish_mode: editorial_workflow
+
+# Media files will be stored in the repo under public/images/uploads
+media_folder: "public/images/uploads"
+# The public_folder is the relative path from the published site to the media folder
+public_folder: "/images/uploads"
+
+collections:
+  - name: "blog" # Used in routes, e.g., /admin/collections/blog
+    label: "Artikel Blog" # Used in the UI
+    folder: "src/content/blog" # The path to the folder where the documents are stored
+    create: true # Allow users to create new documents in this collection
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}" # Filename template
+    fields:
+      - {label: "Judul", name: "title", widget: "string"}
+      - {label: "Publish Date", name: "date", widget: "datetime"}
+      - {label: "Excerpt / Ringkasan", name: "excerpt", widget: "text", required: false}
+      - {label: "Cover Image", name: "thumbnail", widget: "image", required: false}
+      - {label: "Penulis", name: "author", widget: "string", default: "Tim Eldorado Tech"}
+      - {label: "Konten Artikel", name: "body", widget: "markdown"}

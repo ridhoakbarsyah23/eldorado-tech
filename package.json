@@ -9,9 +9,16 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@tailwindcss/typography": "^0.5.20",
+    "@types/scrollmagic": "^2.0.8",
+    "gray-matter": "^4.0.3",
+    "gsap": "^3.15.0",
+    "marked": "^18.0.6",
     "next": "16.2.10",
+    "next-intl": "^4.13.2",
     "react": "19.2.4",
-    "react-dom": "19.2.4"
+    "react-dom": "19.2.4",
+    "scrollmagic": "^2.0.9"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",

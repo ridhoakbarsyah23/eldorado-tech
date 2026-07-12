@@ -1,0 +1,118 @@
+{
+  "Hero": {
+    "title1": "Bangun Masa Depan",
+    "title2": "Digital Anda Bersama Kami",
+    "subtitle": "Kami mengubah ide-ide brilian menjadi solusi teknologi yang nyata, inovatif, dan berkinerja tinggi untuk bisnis Anda.",
+    "cta_primary": "Mulai Proyek",
+    "cta_secondary": "Pelajari Layanan",
+    "feature1": "Pengembangan Kustom",
+    "feature2": "Kinerja Tinggi",
+    "feature3": "Dukungan 24/7"
+  },
+  "Navigation": {
+    "about": "Tentang",
+    "services": "Layanan",
+    "portfolio": "Portofolio",
+    "contact": "Kontak"
+  },
+  "Contact": {
+    "title": "Hubungi",
+    "titleHighlight": "Kami",
+    "subtitle": "Diskusikan proyek Anda dengan tim ahli kami. Kami siap membantu mewujudkan visi teknologi Anda.",
+    "emailTitle": "Email",
+    "phoneTitle": "Telepon / WhatsApp",
+    "officeTitle": "Kantor Pusat",
+    "officeAddress": "Purwokerto, Jawa Tengah, Indonesia",
+    "officeRegion": "Jawa Tengah, Indonesia",
+    "formName": "Nama Lengkap",
+    "formNamePlaceholder": "Masukkan nama lengkap Anda",
+    "formEmail": "Alamat Email",
+    "formEmailPlaceholder": "contoh@email.com",
+    "formService": "Layanan yang Dibutuhkan",
+    "formServicePlaceholder": "Pilih Layanan",
+    "formMessage": "Pesan / Detail Proyek",
+    "formMessagePlaceholder": "Ceritakan tentang proyek atau kebutuhan Anda...",
+    "formSubmit": "Kirim Pesan",
+    "formSending": "Mengirim...",
+    "formSuccessTitle": "Pesan Terkirim!",
+    "formSuccessDesc": "Terima kasih telah menghubungi kami. Tim kami akan segera merespons pesan Anda."
+  },
+  "About": {
+    "title": "Tentang",
+    "titleHighlight": "Eldorado Tech",
+    "desc1": "Didirikan dengan keyakinan bahwa teknologi harus dapat diakses, efisien, dan didesain dengan indah, Eldorado Tech adalah agensi pengembangan perangkat lunak terkemuka yang berbasis di Purwokerto, Jawa Tengah, didedikasikan untuk mengubah tantangan kompleks menjadi pengalaman digital yang elegan.",
+    "desc2": "Tim insinyur dan desainer visioner kami bekerja secara kolaboratif untuk membangun aplikasi yang skalabel, merancang antarmuka pengguna yang intuitif, dan memberikan solusi andal yang mendorong pertumbuhan bisnis.",
+    "stat1Value": "50+",
+    "stat1Label": "Proyek Selesai",
+    "stat2Value": "100%",
+    "stat2Label": "Kepuasan Klien"
+  },
+  "Services": {
+    "title": "Keahlian Kami",
+    "subtitle": "Solusi teknologi komprehensif yang dirancang untuk meningkatkan bisnis Anda di era digital.",
+    "s1Title": "Pengembangan Perangkat Lunak",
+    "s1Desc": "Aplikasi khusus yang dibangun untuk menyelesaikan tantangan bisnis unik Anda dengan kode yang skalabel dan mudah dipelihara.",
+    "s2Title": "Infrastruktur Cloud",
+    "s2Desc": "Arsitektur cloud yang aman dan memiliki ketersediaan tinggi memanfaatkan AWS, Google Cloud, dan Azure untuk performa maksimal.",
+    "s3Title": "Desain UI/UX",
+    "s3Desc": "Desain berpusat pada pengguna yang menggabungkan estetika visual memukau dengan fungsionalitas intuitif untuk memikat audiens Anda."
+  },
+  "Portfolio": {
+    "title": "Karya Terbaik Kami",
+    "subtitle": "Berbagai solusi digital yang telah kami bangun untuk mentransformasi bisnis klien kami.",
+    "p1Title": "E-Commerce Nasional",
+    "p1Cat": "Web Development",
+    "p1Desc": "Platform e-commerce dengan sistem pembayaran terintegrasi dan manajemen inventaris real-time.",
+    "p2Title": "Aplikasi Finansial",
+    "p2Cat": "Mobile App",
+    "p2Desc": "Aplikasi pelacakan pengeluaran pribadi dengan analitik AI dan sinkronisasi bank otomatis.",
+    "p3Title": "Dashboard Logistik",
+    "p3Cat": "UI/UX Design",
+    "p3Desc": "Desain sistem pelacakan armada logistik yang intuitif untuk mengurangi waktu pelatihan staf."
+  },
+  "Footer": {
+    "desc": "Mempelopori keunggulan digital melalui solusi perangkat lunak inovatif. Kami membangun teknologi yang menggerakkan masa depan Anda.",
+    "quickLinks": "Tautan Cepat",
+    "contact": "Kontak"
+  },
+  "FAQ": {
+    "title": "Pertanyaan Umum (FAQ)",
+    "subtitle": "Beberapa pertanyaan yang sering ditanyakan oleh calon klien kami.",
+    "q1": "Berapa lama waktu pengerjaan sebuah website atau aplikasi?",
+    "a1": "Waktu pengerjaan sangat bergantung pada kompleksitas proyek. Untuk website company profile standar memakan waktu 2-4 minggu, sedangkan untuk aplikasi custom atau e-commerce kompleks bisa memakan waktu 2-4 bulan.",
+    "q2": "Apakah Eldorado Tech menyediakan layanan maintenance setelah proyek selesai?",
+    "a2": "Ya, kami menyediakan paket dukungan dan pemeliharaan (maintenance) bulanan atau tahunan untuk memastikan sistem Anda tetap aman, mutakhir, dan berjalan dengan optimal.",
+    "q3": "Teknologi apa saja yang biasanya digunakan?",
+    "a3": "Kami menggunakan stack teknologi modern seperti React, Next.js, Node.js, Python, dan arsitektur Cloud (AWS/GCP). Namun, pemilihan teknologi selalu disesuaikan dengan kebutuhan spesifik dari setiap proyek.",
+    "q4": "Bagaimana sistem pembayaran untuk layanan pengembangan?",
+    "a4": "Kami menerapkan sistem termin (milestone) yang disepakati di awal kontrak. Biasanya dibagi menjadi 3 tahap: Down Payment (30%), Pertengahan Proyek (40%), dan Pelunasan saat serah terima (30%)."
+  },
+  "Team": {
+    "title": "Tim Dibalik Layar",
+    "subtitle": "Para ahli yang berdedikasi untuk memberikan hasil terbaik untuk Anda.",
+    "role1": "Chief Executive Officer",
+    "role2": "Chief Technology Officer",
+    "role3": "Lead UI/UX Designer",
+    "role4": "Head of Marketing"
+  },
+  "Testimonial": {
+    "title": "Apa Kata Klien Kami",
+    "subtitle": "Kepercayaan klien adalah aset berharga kami.",
+    "role1": "CEO, TechNusantara",
+    "content1": "Kerja sama dengan Eldorado Tech sangat memuaskan. Mereka tidak hanya menulis kode, tapi juga memberikan solusi bisnis yang tepat sasaran.",
+    "role2": "Direktur Operasional, LogistikKu",
+    "content2": "Aplikasi yang dikembangkan berhasil memangkas waktu operasional kami hingga 40%. Desain UI/UX nya juga sangat mudah dipahami oleh staf kami.",
+    "role3": "Founder, StartUp Kreatif",
+    "content3": "Infrastruktur cloud yang dirancang sangat tangguh. Kami tidak pernah mengalami downtime lagi meski saat traffic sedang memuncak."
+  },
+  "Newsletter": {
+    "title": "Berlangganan Newsletter Kami",
+    "subtitle": "Dapatkan update terbaru seputar teknologi, tips pengembangan web, dan penawaran eksklusif dari kami.",
+    "success": "Terima kasih telah berlangganan!",
+    "placeholder": "Masukkan email Anda...",
+    "btnSubmitting": "Mengirim...",
+    "btnSubmit": "Langganan",
+    "error": "Terjadi kesalahan, silakan coba lagi nanti.",
+    "spam": "Kami tidak akan pernah mengirimkan spam. Anda dapat berhenti berlangganan kapan saja."
+  }
+}

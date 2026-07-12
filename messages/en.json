@@ -1,0 +1,118 @@
+{
+  "Hero": {
+    "title1": "Build Your Digital",
+    "title2": "Future With Us",
+    "subtitle": "We turn brilliant ideas into real, innovative, and high-performance technology solutions for your business.",
+    "cta_primary": "Start Project",
+    "cta_secondary": "Explore Services",
+    "feature1": "Custom Development",
+    "feature2": "High Performance",
+    "feature3": "24/7 Support"
+  },
+  "Navigation": {
+    "about": "About",
+    "services": "Services",
+    "portfolio": "Portfolio",
+    "contact": "Contact"
+  },
+  "Contact": {
+    "title": "Contact",
+    "titleHighlight": "Us",
+    "subtitle": "Discuss your project with our expert team. We are ready to help realize your technology vision.",
+    "emailTitle": "Email",
+    "phoneTitle": "Phone / WhatsApp",
+    "officeTitle": "Headquarters",
+    "officeAddress": "Purwokerto, Central Java, Indonesia",
+    "officeRegion": "Central Java, Indonesia",
+    "formName": "Full Name",
+    "formNamePlaceholder": "Enter your full name",
+    "formEmail": "Email Address",
+    "formEmailPlaceholder": "example@email.com",
+    "formService": "Service Required",
+    "formServicePlaceholder": "Select Service",
+    "formMessage": "Message / Project Details",
+    "formMessagePlaceholder": "Tell us about your project or needs...",
+    "formSubmit": "Send Message",
+    "formSending": "Sending...",
+    "formSuccessTitle": "Message Sent!",
+    "formSuccessDesc": "Thank you for contacting us. Our team will respond to your message shortly."
+  },
+  "About": {
+    "title": "About",
+    "titleHighlight": "Eldorado Tech",
+    "desc1": "Founded on the belief that technology should be accessible, efficient, and beautifully designed, Eldorado Tech is a leading software development agency based in Purwokerto, Central Java, dedicated to turning complex challenges into elegant digital experiences.",
+    "desc2": "Our visionary team of engineers and designers work collaboratively to build scalable applications, craft intuitive user interfaces, and deliver reliable solutions that drive business growth.",
+    "stat1Value": "50+",
+    "stat1Label": "Completed Projects",
+    "stat2Value": "100%",
+    "stat2Label": "Client Satisfaction"
+  },
+  "Services": {
+    "title": "Our Expertise",
+    "subtitle": "Comprehensive technology solutions designed to elevate your business in the digital era.",
+    "s1Title": "Software Development",
+    "s1Desc": "Custom applications built to solve your unique business challenges with scalable and maintainable code.",
+    "s2Title": "Cloud Infrastructure",
+    "s2Desc": "Secure and highly available cloud architecture leveraging AWS, Google Cloud, and Azure for maximum performance.",
+    "s3Title": "UI/UX Design",
+    "s3Desc": "User-centric design combining stunning visual aesthetics with intuitive functionality to captivate your audience."
+  },
+  "Portfolio": {
+    "title": "Our Best Work",
+    "subtitle": "Various digital solutions we have built to transform our clients' businesses.",
+    "p1Title": "National E-Commerce",
+    "p1Cat": "Web Development",
+    "p1Desc": "E-commerce platform with integrated payment system and real-time inventory management.",
+    "p2Title": "Financial App",
+    "p2Cat": "Mobile App",
+    "p2Desc": "Personal expense tracking app with AI analytics and automatic bank synchronization.",
+    "p3Title": "Logistics Dashboard",
+    "p3Cat": "UI/UX Design",
+    "p3Desc": "Intuitive logistics fleet tracking system design to reduce staff training time."
+  },
+  "Footer": {
+    "desc": "Pioneering digital excellence through innovative software solutions. We build the technology that powers your future.",
+    "quickLinks": "Quick Links",
+    "contact": "Contact"
+  },
+  "FAQ": {
+    "title": "Frequently Asked Questions (FAQ)",
+    "subtitle": "Some questions often asked by our prospective clients.",
+    "q1": "How long does it take to build a website or app?",
+    "a1": "Development time depends heavily on project complexity. Standard company profile websites take 2-4 weeks, while custom apps or complex e-commerce platforms can take 2-4 months.",
+    "q2": "Does Eldorado Tech provide maintenance services after project completion?",
+    "a2": "Yes, we provide monthly or annual support and maintenance packages to ensure your system remains secure, up-to-date, and runs optimally.",
+    "q3": "What technologies do you usually use?",
+    "a3": "We use modern tech stacks such as React, Next.js, Node.js, Python, and Cloud architectures (AWS/GCP). However, technology selection is always tailored to each project's specific needs.",
+    "q4": "What is the payment system for development services?",
+    "a4": "We apply a milestone system agreed upon at the start of the contract. It's usually divided into 3 stages: Down Payment (30%), Mid-Project (40%), and Final Settlement upon handover (30%)."
+  },
+  "Team": {
+    "title": "The Team Behind the Scenes",
+    "subtitle": "Dedicated experts committed to delivering the best results for you.",
+    "role1": "Chief Executive Officer",
+    "role2": "Chief Technology Officer",
+    "role3": "Lead UI/UX Designer",
+    "role4": "Head of Marketing"
+  },
+  "Testimonial": {
+    "title": "What Our Clients Say",
+    "subtitle": "Client trust is our most valuable asset.",
+    "role1": "CEO, TechNusantara",
+    "content1": "Working with Eldorado Tech was very satisfying. They don't just write code, they provide targeted business solutions.",
+    "role2": "Operations Director, LogistikKu",
+    "content2": "The application developed successfully cut our operational time by 40%. The UI/UX design is also very easy for our staff to understand.",
+    "role3": "Founder, StartUp Kreatif",
+    "content3": "The cloud infrastructure designed is very robust. We've never experienced downtime again even during peak traffic."
+  },
+  "Newsletter": {
+    "title": "Subscribe to Our Newsletter",
+    "subtitle": "Get the latest updates on technology, web development tips, and exclusive offers from us.",
+    "success": "Thank you for subscribing!",
+    "placeholder": "Enter your email...",
+    "btnSubmitting": "Sending...",
+    "btnSubmit": "Subscribe",
+    "error": "An error occurred, please try again later.",
+    "spam": "We will never send spam. You can unsubscribe at any time."
+  }
+}
