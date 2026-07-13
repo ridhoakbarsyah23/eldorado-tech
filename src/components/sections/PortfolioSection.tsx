@@ -32,35 +32,8 @@ export default function PortfolioSection() {
   ];
 
   useEffect(() => {
-    let controller: any = null;
-    let scene: any = null;
-
-    import('scrollmagic').then((ScrollMagicModule) => {
-      const ScrollMagic = ScrollMagicModule.default || ScrollMagicModule;
-      controller = new ScrollMagic.Controller();
-      
-      if (titleRef.current) gsap.set(titleRef.current, { y: 30, opacity: 0 });
-      cardsRef.current.forEach(card => {
-        if(card) gsap.set(card, { y: 50, opacity: 0 });
-      });
-
-      scene = new ScrollMagic.Scene({
-        triggerElement: sectionRef.current,
-        triggerHook: 0.8,
-        reverse: false
-      })
-      .on("enter", () => {
-         if (titleRef.current) gsap.to(titleRef.current, { y: 0, opacity: 1, duration: 0.8, ease: "power2.out" });
-         const validCards = cardsRef.current.filter(Boolean);
-         if (validCards.length > 0) gsap.to(validCards, { y: 0, opacity: 1, duration: 0.8, stagger: 0.2, ease: "back.out(1.7)", delay: 0.2 });
-      })
-      .addTo(controller);
-    });
-
-    return () => {
-      if (scene) scene.destroy(true);
-      if (controller) controller.destroy(true);
-    };
+    if (titleRef.current) 
+    return () => {};
   }, []);
 
   return (
@@ -69,7 +42,7 @@ export default function PortfolioSection() {
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3/4 h-3/4 bg-blue-500/5 blur-[120px] rounded-full pointer-events-none"></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div ref={titleRef} className="text-center mb-16 opacity-0">
+        <div ref={titleRef} className="text-center mb-16 ">
           <h2 className="text-3xl font-extrabold text-gray-900 sm:text-4xl">{t('title')}</h2>
           <p className="mt-4 text-xl text-gray-600 max-w-2xl mx-auto">
             {t('subtitle')}
@@ -81,7 +54,7 @@ export default function PortfolioSection() {
             <div 
               key={index} 
               ref={el => { cardsRef.current[index] = el; }} 
-              className="opacity-0 group relative overflow-hidden rounded-2xl bg-white border border-gray-200 shadow-sm hover:shadow-xl transition-all duration-500"
+              className=" group relative overflow-hidden rounded-2xl bg-white border border-gray-200 shadow-sm hover:shadow-xl transition-all duration-500"
             >
               <div className="aspect-[4/3] overflow-hidden relative">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -98,7 +71,7 @@ export default function PortfolioSection() {
                   {item.category}
                 </span>
                 <h3 className="text-xl font-bold text-gray-900 mb-2">{item.title}</h3>
-                <p className="text-gray-600 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
+                <p className="text-gray-600 text-sm  group-hover:opacity-100 transition-opacity duration-500 delay-100">
                   {item.description}
                 </p>
               </div>

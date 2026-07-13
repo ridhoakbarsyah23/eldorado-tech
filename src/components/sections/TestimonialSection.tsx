@@ -16,41 +16,14 @@ export default function TestimonialSection() {
   ];
 
   useEffect(() => {
-    let controller: any = null;
-    let scene: any = null;
-
-    import('scrollmagic').then((ScrollMagicModule) => {
-      const ScrollMagic = ScrollMagicModule.default || ScrollMagicModule;
-      controller = new ScrollMagic.Controller();
-      
-      if (titleRef.current) gsap.set(titleRef.current, { y: 30, opacity: 0 });
-      cardsRef.current.forEach(card => {
-        if(card) gsap.set(card, { y: 50, opacity: 0, scale: 0.9 });
-      });
-
-      scene = new ScrollMagic.Scene({
-        triggerElement: sectionRef.current,
-        triggerHook: 0.8,
-        reverse: false
-      })
-      .on("enter", () => {
-         if (titleRef.current) gsap.to(titleRef.current, { y: 0, opacity: 1, duration: 0.8, ease: "power2.out" });
-         const validCards = cardsRef.current.filter(Boolean);
-         if (validCards.length > 0) gsap.to(validCards, { y: 0, opacity: 1, scale: 1, duration: 0.8, stagger: 0.2, ease: "back.out(1.5)", delay: 0.2 });
-      })
-      .addTo(controller);
-    });
-
-    return () => {
-      if (scene) scene.destroy(true);
-      if (controller) controller.destroy(true);
-    };
+    if (titleRef.current) 
+    return () => {};
   }, []);
 
   return (
     <section id="testimonials" ref={sectionRef} className="py-24 bg-white/50 relative border-t border-gray-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div ref={titleRef} className="text-center mb-16 opacity-0">
+        <div ref={titleRef} className="text-center mb-16 ">
           <h2 className="text-3xl font-extrabold text-gray-900 sm:text-4xl">{t('title')}</h2>
           <p className="mt-4 text-xl text-gray-600 max-w-2xl mx-auto">
             {t('subtitle')}
@@ -62,14 +35,14 @@ export default function TestimonialSection() {
             <div 
               key={index} 
               ref={el => { cardsRef.current[index] = el; }} 
-              className="opacity-0 bg-white border border-gray-200 shadow-sm rounded-2xl p-8 hover:shadow-lg transition-all duration-300 relative"
+              className=" bg-white border border-gray-200 shadow-sm rounded-2xl p-8 hover:shadow-lg transition-all duration-300 relative"
             >
               <div className="text-blue-500 mb-6">
                 <svg className="w-8 h-8 opacity-50" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
                 </svg>
               </div>
-              <p className="text-gray-700 mb-8 italic">"{testimonial.content}"</p>
+              <p className="text-gray-700 mb-8 italic">&quot;{testimonial.content}&quot;</p>
               <div className="flex items-center">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img 

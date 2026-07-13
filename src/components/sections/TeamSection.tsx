@@ -17,41 +17,14 @@ export default function TeamSection() {
   ];
 
   useEffect(() => {
-    let controller: any = null;
-    let scene: any = null;
-
-    import('scrollmagic').then((ScrollMagicModule) => {
-      const ScrollMagic = ScrollMagicModule.default || ScrollMagicModule;
-      controller = new ScrollMagic.Controller();
-      
-      if (titleRef.current) gsap.set(titleRef.current, { y: 30, opacity: 0 });
-      cardsRef.current.forEach(card => {
-        if(card) gsap.set(card, { y: 50, opacity: 0 });
-      });
-
-      scene = new ScrollMagic.Scene({
-        triggerElement: sectionRef.current,
-        triggerHook: 0.8,
-        reverse: false
-      })
-      .on("enter", () => {
-         if (titleRef.current) gsap.to(titleRef.current, { y: 0, opacity: 1, duration: 0.8, ease: "power2.out" });
-         const validCards = cardsRef.current.filter(Boolean);
-         if (validCards.length > 0) gsap.to(validCards, { y: 0, opacity: 1, duration: 0.8, stagger: 0.15, ease: "power2.out", delay: 0.2 });
-      })
-      .addTo(controller);
-    });
-
-    return () => {
-      if (scene) scene.destroy(true);
-      if (controller) controller.destroy(true);
-    };
+    if (titleRef.current) 
+    return () => {};
   }, []);
 
   return (
     <section id="team" ref={sectionRef} className="py-24 bg-gray-50/50 relative border-t border-gray-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div ref={titleRef} className="text-center mb-16 opacity-0">
+        <div ref={titleRef} className="text-center mb-16 ">
           <h2 className="text-3xl font-extrabold text-gray-900 sm:text-4xl">{t('title')}</h2>
           <p className="mt-4 text-xl text-gray-600 max-w-2xl mx-auto">
             {t('subtitle')}
@@ -63,10 +36,10 @@ export default function TeamSection() {
             <div 
               key={index} 
               ref={el => { cardsRef.current[index] = el; }} 
-              className="opacity-0 group text-center"
+              className=" group text-center"
             >
               <div className="relative mb-6 inline-block">
-                <div className="absolute inset-0 bg-blue-500 rounded-full blur-md opacity-0 group-hover:opacity-40 transition-opacity duration-500"></div>
+                <div className="absolute inset-0 bg-blue-500 rounded-full blur-md  group-hover:opacity-40 transition-opacity duration-500"></div>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img 
                   src={member.image} 
@@ -76,7 +49,7 @@ export default function TeamSection() {
               </div>
               <h3 className="text-lg font-bold text-gray-900 mb-1">{member.name}</h3>
               <p className="text-blue-600 text-sm mb-4">{member.role}</p>
-              <div className="flex justify-center space-x-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <div className="flex justify-center space-x-3  group-hover:opacity-100 transition-opacity duration-300">
                 <a href={member.social} className="text-gray-400 hover:text-blue-600 transition-colors">
                   <span className="sr-only">LinkedIn</span>
                   <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">

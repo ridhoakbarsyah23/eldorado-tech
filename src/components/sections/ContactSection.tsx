@@ -16,34 +16,8 @@ export default function ContactSection() {
   const FORMSPREE_ENDPOINT = 'https://formspree.io/f/mbdnrpvl';
 
   useEffect(() => {
-    let controller: any = null;
-    let scene: any = null;
-
-    import('scrollmagic').then((ScrollMagicModule) => {
-      const ScrollMagic = ScrollMagicModule.default || ScrollMagicModule;
-      controller = new ScrollMagic.Controller();
-
-      gsap.set(titleRef.current, { y: 30, opacity: 0 });
-      gsap.set(formRef.current, { x: 50, opacity: 0 });
-      gsap.set(infoRef.current, { x: -50, opacity: 0 });
-
-      scene = new ScrollMagic.Scene({
-        triggerElement: sectionRef.current,
-        triggerHook: 0.8,
-        reverse: false
-      })
-        .on("enter", () => {
-          gsap.to(titleRef.current, { y: 0, opacity: 1, duration: 0.8, ease: "power2.out" });
-          gsap.to(infoRef.current, { x: 0, opacity: 1, duration: 0.8, ease: "power2.out", delay: 0.2 });
-          gsap.to(formRef.current, { x: 0, opacity: 1, duration: 0.8, ease: "power2.out", delay: 0.4 });
-        })
-        .addTo(controller);
-    });
-
-    return () => {
-      if (scene) scene.destroy(true);
-      if (controller) controller.destroy(true);
-    };
+    
+    return () => {};
   }, []);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -85,7 +59,7 @@ export default function ContactSection() {
       <div className="absolute bottom-0 left-0 w-96 h-96 bg-cyan-600/10 blur-[100px] rounded-full pointer-events-none"></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div ref={titleRef} className="text-center mb-16 opacity-0">
+        <div ref={titleRef} className="text-center mb-16 ">
           <h2 className="text-3xl font-extrabold text-gray-900 sm:text-4xl">{t('title')} <span className="text-blue-600">{t('titleHighlight')}</span></h2>
           <p className="mt-4 text-xl text-gray-600 max-w-2xl mx-auto">
             {t('subtitle')}
@@ -94,7 +68,7 @@ export default function ContactSection() {
 
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Contact Info */}
-          <div ref={infoRef} className="opacity-0 space-y-8">
+          <div ref={infoRef} className=" space-y-8">
             <h3 className="text-2xl font-bold text-gray-900 mb-6">Informasi Kontak</h3>
 
             <div className="flex items-start">
@@ -139,7 +113,7 @@ export default function ContactSection() {
           </div>
 
           {/* Contact Form */}
-          <div ref={formRef} className="opacity-0 bg-white border border-gray-200 shadow-xl rounded-2xl p-8 relative overflow-hidden">
+          <div ref={formRef} className=" bg-white border border-gray-200 shadow-xl rounded-2xl p-8 relative overflow-hidden">
             {formState === 'success' && (
               <div className="absolute inset-0 bg-white/95 backdrop-blur-sm z-20 flex flex-col items-center justify-center text-center p-8">
                 <div className="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center text-green-600 mb-4">
