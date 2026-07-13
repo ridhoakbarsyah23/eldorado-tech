@@ -7,7 +7,8 @@ export default function CustomCursor() {
   const [hasMounted, setHasMounted] = useState(false);
 
   useEffect(() => {
-    setHasMounted(true);
+    // setTimeout to avoid synchronous setState
+    setTimeout(() => setHasMounted(true), 0);
     
     // Only enable custom cursor on non-touch devices
     if (window.matchMedia("(hover: none)").matches) return;

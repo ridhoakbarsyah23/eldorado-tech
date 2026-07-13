@@ -19,32 +19,8 @@ export default function FAQSection() {
   ];
 
   useEffect(() => {
-    let controller: any = null;
-    let scene: any = null;
-
-    import('scrollmagic').then((ScrollMagicModule) => {
-      const ScrollMagic = ScrollMagicModule.default || ScrollMagicModule;
-      controller = new ScrollMagic.Controller();
-      
-      gsap.set(titleRef.current, { y: 30, opacity: 0 });
-      gsap.set(faqRef.current, { y: 40, opacity: 0 });
-
-      scene = new ScrollMagic.Scene({
-        triggerElement: sectionRef.current,
-        triggerHook: 0.8,
-        reverse: false
-      })
-      .on("enter", () => {
-         gsap.to(titleRef.current, { y: 0, opacity: 1, duration: 0.8, ease: "power2.out" });
-         gsap.to(faqRef.current, { y: 0, opacity: 1, duration: 0.8, ease: "power2.out", delay: 0.2 });
-      })
-      .addTo(controller);
-    });
-
-    return () => {
-      if (scene) scene.destroy(true);
-      if (controller) controller.destroy(true);
-    };
+    
+    return () => {};
   }, []);
 
   const toggleFaq = (index: number) => {
@@ -54,14 +30,14 @@ export default function FAQSection() {
   return (
     <section id="faq" ref={sectionRef} className="py-24 bg-gray-50/80 relative border-t border-gray-200">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div ref={titleRef} className="text-center mb-16 opacity-0">
+        <div ref={titleRef} className="text-center mb-16 ">
           <h2 className="text-3xl font-extrabold text-gray-900 sm:text-4xl">{t('title')}</h2>
           <p className="mt-4 text-xl text-gray-600">
             {t('subtitle')}
           </p>
         </div>
         
-        <div ref={faqRef} className="space-y-4 opacity-0">
+        <div ref={faqRef} className="space-y-4 ">
           {faqs.map((faq, index) => (
             <div 
               key={index} 
@@ -80,7 +56,7 @@ export default function FAQSection() {
               </button>
               
               <div 
-                className={`px-6 overflow-hidden transition-all duration-300 ease-in-out ${openIndex === index ? 'max-h-96 pb-5 opacity-100' : 'max-h-0 opacity-0'}`}
+                className={`px-6 overflow-hidden transition-all duration-300 ease-in-out ${openIndex === index ? 'max-h-96 pb-5 opacity-100' : 'max-h-0 '}`}
               >
                 <p className="text-gray-600 leading-relaxed pt-2 border-t border-gray-200">
                   {faq.answer}

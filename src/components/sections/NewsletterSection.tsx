@@ -13,30 +13,8 @@ export default function NewsletterSection() {
   const FORMSPREE_ENDPOINT = 'https://formspree.io/f/YOUR_ENDPOINT_HERE'; 
 
   useEffect(() => {
-    let controller: any = null;
-    let scene: any = null;
-
-    import('scrollmagic').then((ScrollMagicModule) => {
-      const ScrollMagic = ScrollMagicModule.default || ScrollMagicModule;
-      controller = new ScrollMagic.Controller();
-      
-      gsap.set(containerRef.current, { y: 40, opacity: 0, scale: 0.95 });
-
-      scene = new ScrollMagic.Scene({
-        triggerElement: sectionRef.current,
-        triggerHook: 0.9,
-        reverse: false
-      })
-      .on("enter", () => {
-         gsap.to(containerRef.current, { y: 0, opacity: 1, scale: 1, duration: 1, ease: "power3.out" });
-      })
-      .addTo(controller);
-    });
-
-    return () => {
-      if (scene) scene.destroy(true);
-      if (controller) controller.destroy(true);
-    };
+    
+    return () => {};
   }, []);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
