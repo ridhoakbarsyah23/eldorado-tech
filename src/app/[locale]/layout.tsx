@@ -1,16 +1,15 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Plus_Jakarta_Sans, Geist_Mono } from "next/font/google";
 import "../globals.css";
 import dynamic from 'next/dynamic';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import { routing } from '@/i18n/routing';
 
-const LiveChatWidget = dynamic(() => import('@/components/ui/LiveChatWidget'));
 import { notFound } from 'next/navigation';
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const jakartaSans = Plus_Jakarta_Sans({
+  variable: "--font-jakarta-sans",
   subsets: ["latin"],
 });
 
@@ -83,13 +82,12 @@ export default async function LocaleLayout({
   return (
     <html
       lang={locale}
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased scroll-smooth`}
+      className={`dark ${jakartaSans.variable} ${geistMono.variable} font-sans h-full antialiased scroll-smooth`}
       data-scroll-behavior="smooth"
     >
       <body className="min-h-full flex flex-col">
         <NextIntlClientProvider messages={messages}>
           {children}
-          <LiveChatWidget />
         </NextIntlClientProvider>
       </body>
     </html>

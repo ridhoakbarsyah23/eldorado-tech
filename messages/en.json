@@ -1,8 +1,8 @@
 {
   "Hero": {
-    "title1": "Build Your Digital",
-    "title2": "Future With Us",
-    "subtitle": "We turn brilliant ideas into real, innovative, and high-performance technology solutions for your business.",
+    "title1": "Digital Solutions",
+    "title2": "For Your Business",
+    "subtitle": "We help turn your ideas into fast, secure, and user-friendly applications and websites.",
     "cta_primary": "Start Project",
     "cta_secondary": "Explore Services",
     "feature1": "Custom Development",
@@ -35,11 +35,20 @@
     "formSubmit": "Send Message",
     "formSending": "Sending...",
     "formSuccessTitle": "Message Sent!",
-    "formSuccessDesc": "Thank you for contacting us. Our team will respond to your message shortly."
+    "formSuccessDesc": "Thank you for contacting us. Our team will respond to your message shortly.",
+    "infoTitle": "Contact Information",
+    "infoDesc": "We are ready to help discuss your digital needs. Contact us through one of the following channels.",
+    "emailDesc": "We usually reply within 24 hours.",
+    "serviceWeb": "Web Development",
+    "serviceMobile": "Mobile App",
+    "serviceUiUx": "UI/UX Design",
+    "serviceCloud": "Cloud Services",
+    "formErrorMsg": "Sorry, an error occurred while sending the message. Please try again."
   },
   "About": {
     "title": "About",
     "titleHighlight": "Eldorado Tech",
+    "whoWeAre": "Who we are",
     "desc1": "Founded on the belief that technology should be accessible, efficient, and beautifully designed, Eldorado Tech is a leading software development agency based in Purwokerto, Central Java, dedicated to turning complex challenges into elegant digital experiences.",
     "desc2": "Our visionary team of engineers and designers work collaboratively to build scalable applications, craft intuitive user interfaces, and deliver reliable solutions that drive business growth.",
     "stat1Value": "50+",
@@ -73,7 +82,9 @@
   "Footer": {
     "desc": "Pioneering digital excellence through innovative software solutions. We build the technology that powers your future.",
     "quickLinks": "Quick Links",
-    "contact": "Contact"
+    "contact": "Contact",
+    "address": "Purwokerto, Central Java",
+    "rights": "Eldorado Tech. All rights reserved."
   },
   "FAQ": {
     "title": "Frequently Asked Questions (FAQ)",
