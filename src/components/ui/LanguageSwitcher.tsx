@@ -32,8 +32,12 @@ export default function LanguageSwitcher({ onNavigate }: LanguageSwitcherProps) 
           <button
             type="button"
             key={lang.code}
+            onPointerDown={(event) => {
+              event.preventDefault();
+              changeLanguage(lang.code);
+            }}
             onClick={() => changeLanguage(lang.code)}
-            className={`flex min-h-11 min-w-14 items-center justify-center px-4 py-2 rounded-lg transition-colors duration-300 select-none ${isActive
+            className={`flex min-h-11 min-w-14 touch-manipulation items-center justify-center px-4 py-2 rounded-lg transition-colors duration-300 select-none ${isActive
                 ? 'bg-white shadow-sm ring-1 ring-gray-900/5'
                 : 'active:bg-gray-200 cursor-pointer opacity-80 hover:opacity-100'
               }`}
