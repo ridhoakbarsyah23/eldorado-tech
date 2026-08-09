@@ -1,8 +1,8 @@
 {
   "Hero": {
-    "title1": "Bangun Masa Depan",
-    "title2": "Digital Anda Bersama Kami",
-    "subtitle": "Kami mengubah ide-ide brilian menjadi solusi teknologi yang nyata, inovatif, dan berkinerja tinggi untuk bisnis Anda.",
+    "title1": "Solusi Digital",
+    "title2": "Untuk Bisnis Anda",
+    "subtitle": "Kami membantu mewujudkan ide Anda menjadi aplikasi dan website yang cepat, aman, dan mudah digunakan.",
     "cta_primary": "Mulai Proyek",
     "cta_secondary": "Pelajari Layanan",
     "feature1": "Pengembangan Kustom",
@@ -35,11 +35,20 @@
     "formSubmit": "Kirim Pesan",
     "formSending": "Mengirim...",
     "formSuccessTitle": "Pesan Terkirim!",
-    "formSuccessDesc": "Terima kasih telah menghubungi kami. Tim kami akan segera merespons pesan Anda."
+    "formSuccessDesc": "Terima kasih telah menghubungi kami. Tim kami akan segera merespons pesan Anda.",
+    "infoTitle": "Informasi Kontak",
+    "infoDesc": "Kami siap membantu mendiskusikan kebutuhan digital Anda. Hubungi kami melalui salah satu saluran berikut.",
+    "emailDesc": "Kami membalas dalam 1x24 jam.",
+    "serviceWeb": "Pengembangan Web",
+    "serviceMobile": "Aplikasi Mobile",
+    "serviceUiUx": "Desain UI/UX",
+    "serviceCloud": "Layanan Cloud",
+    "formErrorMsg": "Maaf, terjadi kesalahan saat mengirim pesan. Silakan coba lagi."
   },
   "About": {
     "title": "Tentang",
     "titleHighlight": "Eldorado Tech",
+    "whoWeAre": "Siapa Kami",
     "desc1": "Didirikan dengan keyakinan bahwa teknologi harus dapat diakses, efisien, dan didesain dengan indah, Eldorado Tech adalah agensi pengembangan perangkat lunak terkemuka yang berbasis di Purwokerto, Jawa Tengah, didedikasikan untuk mengubah tantangan kompleks menjadi pengalaman digital yang elegan.",
     "desc2": "Tim insinyur dan desainer visioner kami bekerja secara kolaboratif untuk membangun aplikasi yang skalabel, merancang antarmuka pengguna yang intuitif, dan memberikan solusi andal yang mendorong pertumbuhan bisnis.",
     "stat1Value": "50+",
@@ -73,7 +82,9 @@
   "Footer": {
     "desc": "Mempelopori keunggulan digital melalui solusi perangkat lunak inovatif. Kami membangun teknologi yang menggerakkan masa depan Anda.",
     "quickLinks": "Tautan Cepat",
-    "contact": "Kontak"
+    "contact": "Kontak",
+    "address": "Purwokerto, Jawa Tengah",
+    "rights": "Eldorado Tech. Hak cipta dilindungi undang-undang."
   },
   "FAQ": {
     "title": "Pertanyaan Umum (FAQ)",
