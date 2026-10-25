@@ -1,24 +1,15 @@
 import Sidebar from '@/components/crm/Sidebar';
 import Topbar from '@/components/crm/Topbar';
 
-export const metadata = {
-  title: 'CRM Dashboard | Eldorado Tech',
-  description: 'Internal CRM for Eldorado Tech',
-};
+export const metadata = { title: 'CRM Dashboard | Eldorado Tech', description: 'Internal CRM for Eldorado Tech' };
 
-export default function CRMLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function CRMLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex h-screen overflow-hidden bg-gray-50 text-gray-900">
+    <div className="min-h-screen bg-[#f4f7fb] text-slate-900 lg:flex">
       <Sidebar />
-      <div className="flex-1 flex flex-col h-screen overflow-hidden">
+      <div className="min-w-0 flex-1 lg:pl-72">
         <Topbar />
-        <main className="flex-1 overflow-y-auto p-6 bg-gray-50/50">
-          {children}
-        </main>
+        <main className="mx-auto w-full max-w-[100rem] px-4 pb-28 pt-6 sm:px-6 lg:px-8 lg:pb-10 lg:pt-8">{children}</main>
       </div>
     </div>
   );

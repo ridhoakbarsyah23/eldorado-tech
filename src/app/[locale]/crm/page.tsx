@@ -1,104 +1,32 @@
+const stats = [
+  { title: 'Total Revenue', value: 'Rp 450.000.000', change: '+12%', positive: true },
+  { title: 'Active Projects', value: '12', change: '+2', positive: true },
+  { title: 'New Leads', value: '48', change: '+18%', positive: true },
+  { title: 'Closing Rate', value: '24%', change: '-2%', positive: false },
+];
+
+const recentLeads = [
+  { name: 'PT Maju Bersama', service: 'E-Commerce App', status: 'Negotiation', date: 'Today' },
+  { name: 'CV Tech Jaya', service: 'Company Profile', status: 'New', date: 'Yesterday' },
+  { name: 'Global Finance', service: 'AI Chatbot', status: 'Proposal Sent', date: '2 days ago' },
+  { name: 'Sentosa Store', service: 'POS System', status: 'Closed Won', date: '3 days ago' },
+];
+
+const statusClass: Record<string, string> = { New: 'bg-blue-50 text-blue-700', Negotiation: 'bg-orange-50 text-orange-700', 'Proposal Sent': 'bg-violet-50 text-violet-700', 'Closed Won': 'bg-emerald-50 text-emerald-700' };
+
 export default function CRMOverview() {
-  const stats = [
-    { title: 'Total Revenue', value: 'Rp 450.000.000', change: '+12%', isPositive: true },
-    { title: 'Active Projects', value: '12', change: '+2', isPositive: true },
-    { title: 'New Leads', value: '48', change: '+18%', isPositive: true },
-    { title: 'Closing Rate', value: '24%', change: '-2%', isPositive: false },
-  ];
-
-  const recentLeads = [
-    { name: 'PT Maju Bersama', service: 'E-Commerce App', status: 'Negotiation', date: 'Today' },
-    { name: 'CV Tech Jaya', service: 'Company Profile', status: 'New', date: 'Yesterday' },
-    { name: 'Global Finance', service: 'AI Chatbot', status: 'Proposal Sent', date: '2 days ago' },
-    { name: 'Sentosa Store', service: 'POS System', status: 'Closed Won', date: '3 days ago' },
-  ];
-
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-center">
-        <h1 className="text-2xl font-bold text-gray-800">Dashboard Overview</h1>
-        <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium shadow-md shadow-blue-500/20 transition-all">
-          + Add New Lead
-        </button>
-      </div>
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between"><div><p className="text-sm font-semibold text-slate-500">Saturday, 24 October</p><h2 className="mt-1 text-3xl font-extrabold tracking-tight text-slate-950">Good afternoon, Admin.</h2><p className="mt-2 text-sm text-slate-600">Here is what is happening across your pipeline.</p></div><button type="button" className="inline-flex min-h-12 items-center justify-center rounded-xl bg-orange-600 px-5 text-sm font-bold text-white shadow-[0_10px_25px_rgba(234,88,12,0.2)] transition-colors hover:bg-orange-700"><span aria-hidden="true" className="mr-2 text-lg">+</span>Add new lead</button></div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {stats.map((stat, index) => (
-          <div key={index} className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-            <h3 className="text-gray-500 text-sm font-medium">{stat.title}</h3>
-            <div className="mt-2 flex items-baseline gap-2">
-              <span className="text-3xl font-bold text-gray-900">{stat.value}</span>
-            </div>
-            <div className={`mt-2 text-sm font-medium flex items-center gap-1 ${stat.isPositive ? 'text-green-600' : 'text-red-600'}`}>
-              <span>{stat.isPositive ? '↑' : '↓'}</span>
-              <span>{stat.change} from last month</span>
-            </div>
-          </div>
-        ))}
-      </div>
+      <section aria-label="Performance summary" className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+        {stats.map((stat, index) => <article key={stat.title} className="rounded-2xl border border-slate-200 bg-white p-5 shadow-[0_8px_25px_rgba(15,23,42,0.04)]"><div className="flex items-center justify-between"><p className="text-sm font-semibold text-slate-500">{stat.title}</p><span className="font-mono text-[10px] font-bold text-slate-300">0{index + 1}</span></div><p className="mt-4 text-2xl font-extrabold tracking-tight text-slate-950">{stat.value}</p><p className={`mt-3 flex items-center gap-1 text-xs font-bold ${stat.positive ? 'text-emerald-700' : 'text-red-700'}`}><span aria-hidden="true">{stat.positive ? '↗' : '↘'}</span>{stat.change} <span className="font-medium text-slate-400">from last month</span></p></article>)}
+      </section>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-8">
-        <div className="col-span-2 bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-          <h2 className="text-lg font-bold text-gray-800 mb-4">Recent Leads</h2>
-          <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse">
-              <thead>
-                <tr className="border-b border-gray-100 text-sm text-gray-500">
-                  <th className="pb-3 font-medium">Company</th>
-                  <th className="pb-3 font-medium">Service</th>
-                  <th className="pb-3 font-medium">Status</th>
-                  <th className="pb-3 font-medium">Date</th>
-                </tr>
-              </thead>
-              <tbody>
-                {recentLeads.map((lead, index) => (
-                  <tr key={index} className="border-b border-gray-50 last:border-0 hover:bg-gray-50/50 transition-colors">
-                    <td className="py-4 font-medium text-gray-900">{lead.name}</td>
-                    <td className="py-4 text-gray-600">{lead.service}</td>
-                    <td className="py-4">
-                      <span className={`px-3 py-1 rounded-full text-xs font-medium ${
-                        lead.status === 'New' ? 'bg-blue-100 text-blue-700' :
-                        lead.status === 'Negotiation' ? 'bg-orange-100 text-orange-700' :
-                        lead.status === 'Proposal Sent' ? 'bg-purple-100 text-purple-700' :
-                        'bg-green-100 text-green-700'
-                      }`}>
-                        {lead.status}
-                      </span>
-                    </td>
-                    <td className="py-4 text-gray-500 text-sm">{lead.date}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
+      <div className="grid gap-6 xl:grid-cols-[1.7fr_1fr]">
+        <section className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-[0_8px_25px_rgba(15,23,42,0.04)]"><div className="flex items-center justify-between border-b border-slate-100 px-5 py-5 sm:px-6"><div><h2 className="font-extrabold text-slate-950">Recent leads</h2><p className="mt-1 text-xs text-slate-500">Latest movement in your sales pipeline</p></div><button className="text-sm font-bold text-blue-700 hover:text-blue-900">View all</button></div><div className="overflow-x-auto"><table className="w-full min-w-[620px] text-left"><thead><tr className="bg-slate-50 text-xs font-bold uppercase tracking-[0.1em] text-slate-500"><th className="px-6 py-3">Company</th><th className="px-6 py-3">Service</th><th className="px-6 py-3">Status</th><th className="px-6 py-3">Updated</th></tr></thead><tbody>{recentLeads.map((lead) => <tr key={lead.name} className="border-t border-slate-100 text-sm hover:bg-slate-50"><td className="px-6 py-4 font-bold text-slate-900">{lead.name}</td><td className="px-6 py-4 text-slate-600">{lead.service}</td><td className="px-6 py-4"><span className={`rounded-full px-2.5 py-1 text-xs font-bold ${statusClass[lead.status]}`}>{lead.status}</span></td><td className="px-6 py-4 text-slate-500">{lead.date}</td></tr>)}</tbody></table></div></section>
 
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-          <h2 className="text-lg font-bold text-gray-800 mb-4">Tasks for Today</h2>
-          <div className="space-y-4">
-            <div className="flex items-start gap-3">
-              <input type="checkbox" className="mt-1 w-4 h-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500" />
-              <div>
-                <p className="text-sm font-medium text-gray-900">Follow up with PT Maju Bersama</p>
-                <p className="text-xs text-gray-500 mt-1">Due at 14:00 PM</p>
-              </div>
-            </div>
-            <div className="flex items-start gap-3">
-              <input type="checkbox" className="mt-1 w-4 h-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500" />
-              <div>
-                <p className="text-sm font-medium text-gray-900">Send Proposal to Global Finance</p>
-                <p className="text-xs text-gray-500 mt-1">Due at 16:30 PM</p>
-              </div>
-            </div>
-            <div className="flex items-start gap-3">
-              <input type="checkbox" defaultChecked className="mt-1 w-4 h-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500" />
-              <div>
-                <p className="text-sm font-medium text-gray-400 line-through">Team Sync Meeting</p>
-                <p className="text-xs text-gray-400 line-through mt-1">Done at 10:00 AM</p>
-              </div>
-            </div>
-          </div>
-        </div>
+        <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-[0_8px_25px_rgba(15,23,42,0.04)] sm:p-6"><h2 className="font-extrabold text-slate-950">Today&apos;s focus</h2><p className="mt-1 text-xs text-slate-500">3 tasks · 1 complete</p><div className="mt-6 space-y-3">{[['Follow up with PT Maju Bersama', '14:00'], ['Send proposal to Global Finance', '16:30'], ['Team sync meeting', '10:00']].map(([task, time], index) => <label key={task} className="flex min-h-16 items-start gap-3 rounded-xl border border-slate-100 p-3 transition-colors hover:bg-slate-50"><input type="checkbox" defaultChecked={index === 2} className="mt-1 h-5 w-5 rounded border-slate-300 accent-blue-700" /><span className={index === 2 ? 'text-slate-400 line-through' : ''}><span className="block text-sm font-bold">{task}</span><span className="mt-1 block text-xs text-slate-500">{index === 2 ? 'Completed' : 'Due'} at {time}</span></span></label>)}</div></section>
       </div>
     </div>
   );
