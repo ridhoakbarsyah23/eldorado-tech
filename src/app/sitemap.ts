@@ -1,27 +1,42 @@
-import { MetadataRoute } from 'next';
+import type { MetadataRoute } from 'next';
+import { getAllPosts } from '@/lib/blog';
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://eldoradotech.com'; // Ganti dengan URL asli nantinya
+const locales = ['id', 'en'] as const;
 
-  return [
-    {
-      url: baseUrl,
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://eldoradotech.com';
+  const posts = await getAllPosts();
+  const routes = ['', '/blog'];
+
+  const staticEntries: MetadataRoute.Sitemap = routes.flatMap((route) =>
+    locales.map((locale) => ({
+      url: `${baseUrl}/${locale}${route}`,
       lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 1,
-    },
-    {
-      url: `${baseUrl}/blog`,
-      lastModified: new Date(),
-      changeFrequency: 'daily',
-      priority: 0.8,
-    },
-    // Jika nanti halaman about, services, dll dibuat terpisah:
-    // {
-    //   url: `${baseUrl}/about`,
-    //   lastModified: new Date(),
-    //   changeFrequency: 'monthly',
-    //   priority: 0.8,
-    // },
-  ];
+      changeFrequency: route === '/blog' ? 'weekly' as const : 'monthly' as const,
+      priority: route === '' ? 1 : 0.8,
+      alternates: {
+        languages: {
+          id: `${baseUrl}/id${route}`,
+          en: `${baseUrl}/en${route}`,
+        },
+      },
+    })),
+  );
+
+  const postEntries: MetadataRoute.Sitemap = posts.flatMap((post) =>
+    locales.map((locale) => ({
+      url: `${baseUrl}/${locale}/blog/${post.slug}`,
+      lastModified: post.date || undefined,
+      changeFrequency: 'monthly' as const,
+      priority: 0.7,
+      alternates: {
+        languages: {
+          id: `${baseUrl}/id/blog/${post.slug}`,
+          en: `${baseUrl}/en/blog/${post.slug}`,
+        },
+      },
+    })),
+  );
+
+  return [...staticEntries, ...postEntries];
 }

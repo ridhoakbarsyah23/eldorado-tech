@@ -52,7 +52,7 @@ export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
       author: data.author || 'Tim Eldorado Tech',
       contentHtml,
     };
-  } catch (_e) {
+  } catch {
     return null;
   }
 }
