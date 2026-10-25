@@ -48,6 +48,8 @@
     "validationTitle": "Please check the form",
     "validationDesc": "Some information is incomplete or needs correction.",
     "submissionTitle": "Your message could not be sent",
+    "rateLimitTitle": "Too many attempts",
+    "rateLimitError": "Please wait about {minutes} minutes before trying to send another message.",
     "configurationError": "The form service has not been configured. Please contact us by email.",
     "formErrorMsg": "Something went wrong while sending your message. Try again or use email to continue the conversation.",
     "emailFallback": "Send an email instead",

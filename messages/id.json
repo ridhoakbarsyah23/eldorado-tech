@@ -48,6 +48,8 @@
     "validationTitle": "Periksa kembali formulir",
     "validationDesc": "Ada beberapa informasi yang belum lengkap atau belum sesuai.",
     "submissionTitle": "Pesan belum dapat dikirim",
+    "rateLimitTitle": "Terlalu banyak percobaan",
+    "rateLimitError": "Silakan tunggu sekitar {minutes} menit sebelum mencoba mengirim pesan lagi.",
     "configurationError": "Layanan formulir belum dikonfigurasi. Silakan hubungi kami melalui email.",
     "formErrorMsg": "Terjadi kendala saat mengirim pesan. Coba kembali atau gunakan email agar percakapan tetap dapat dilanjutkan.",
     "emailFallback": "Kirim melalui email",

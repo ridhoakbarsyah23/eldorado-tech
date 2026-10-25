@@ -1,6 +1,9 @@
 'use server';
 
+import { createHash } from 'node:crypto';
+import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
+import { checkContactRateLimit } from '@/lib/rate-limit';
 
 const supportedLocales = new Set(['id', 'en']);
 const supportedServices = new Set(['web', 'mobile', 'uiux', 'cloud']);
@@ -9,8 +12,9 @@ export type ContactField = 'name' | 'email' | 'service' | 'message';
 
 export type ContactFormState = {
   status: 'idle' | 'error';
-  errorType?: 'validation' | 'configuration' | 'submission';
+  errorType?: 'validation' | 'configuration' | 'submission' | 'rate-limit';
   fieldErrors?: Partial<Record<ContactField, string>>;
+  retryAfterSeconds?: number;
 };
 
 function readText(formData: FormData, field: string) {
@@ -27,6 +31,19 @@ function validateEndpoint(value: string | undefined) {
   } catch {
     return null;
   }
+}
+
+async function getClientRateLimitKey() {
+  const requestHeaders = await headers();
+  const forwardedFor = requestHeaders.get('x-forwarded-for')?.split(',', 1)[0]?.trim();
+  const address = requestHeaders.get('cf-connecting-ip')?.trim()
+    || requestHeaders.get('x-real-ip')?.trim()
+    || forwardedFor
+    || 'unknown';
+  const userAgent = requestHeaders.get('user-agent')?.slice(0, 256) || 'unknown';
+  const identity = address === 'unknown' ? `${address}:${userAgent}` : address;
+
+  return createHash('sha256').update(identity).digest('hex');
 }
 
 export async function submitContact(
@@ -57,6 +74,16 @@ export async function submitContact(
       status: 'error',
       errorType: 'validation',
       fieldErrors,
+    };
+  }
+
+  const rateLimit = checkContactRateLimit(await getClientRateLimitKey());
+
+  if (!rateLimit.allowed) {
+    return {
+      status: 'error',
+      errorType: 'rate-limit',
+      retryAfterSeconds: rateLimit.retryAfterSeconds,
     };
   }
 

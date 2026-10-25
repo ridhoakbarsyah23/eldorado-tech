@@ -24,6 +24,7 @@ export default function ContactSection() {
   const fieldClass = 'mt-2 min-h-12 w-full rounded-xl border border-slate-300 bg-white px-4 text-base text-slate-900 shadow-sm transition-colors placeholder:text-slate-400 hover:border-slate-400 focus:border-blue-600 focus:outline-none focus:ring-4 focus:ring-blue-100 aria-[invalid=true]:border-red-500 aria-[invalid=true]:focus:ring-red-100';
   const getError = (field: ContactField) => state.fieldErrors?.[field] ? t(`errors.${field}`) : null;
   const summaryFields = fields.filter((field) => state.fieldErrors?.[field]);
+  const retryAfterMinutes = Math.max(1, Math.ceil((state.retryAfterSeconds ?? 0) / 60));
 
   return (
     <section id="contact" className="bg-blue-700 py-20 text-white sm:py-28">
@@ -57,10 +58,16 @@ export default function ContactSection() {
             {state.status === 'error' && (
               <div ref={errorSummaryRef} tabIndex={-1} role="alert" aria-labelledby="contact-error-title" className="rounded-2xl border border-red-200 bg-red-50 p-4 text-red-900 focus:outline-none focus:ring-4 focus:ring-red-100">
                 <p id="contact-error-title" className="font-bold">
-                  {state.errorType === 'validation' ? t('validationTitle') : t('submissionTitle')}
+                  {state.errorType === 'validation' ? t('validationTitle') : state.errorType === 'rate-limit' ? t('rateLimitTitle') : t('submissionTitle')}
                 </p>
                 <p className="mt-1 text-sm leading-6">
-                  {state.errorType === 'configuration' ? t('configurationError') : state.errorType === 'submission' ? t('formErrorMsg') : t('validationDesc')}
+                  {state.errorType === 'configuration'
+                    ? t('configurationError')
+                    : state.errorType === 'submission'
+                      ? t('formErrorMsg')
+                      : state.errorType === 'rate-limit'
+                        ? t('rateLimitError', { minutes: retryAfterMinutes })
+                        : t('validationDesc')}
                 </p>
                 {summaryFields.length > 0 && (
                   <ul className="mt-3 space-y-1 text-sm font-semibold">
