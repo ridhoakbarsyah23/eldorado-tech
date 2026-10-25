@@ -1,192 +1,122 @@
 'use client';
-import { useEffect, useRef, useState } from 'react';
-import gsap from 'gsap';
-import { useTranslations } from 'next-intl';
+
+import { useActionState, useEffect, useRef } from 'react';
+import { useLocale, useTranslations } from 'next-intl';
+import {
+  submitContact,
+  type ContactField,
+  type ContactFormState,
+} from '@/app/actions/contact';
+
+const fields: ContactField[] = ['name', 'email', 'service', 'message'];
+const initialContactFormState: ContactFormState = { status: 'idle' };
 
 export default function ContactSection() {
+  const locale = useLocale();
   const t = useTranslations('Contact');
-  const sectionRef = useRef<HTMLElement>(null);
-  const titleRef = useRef<HTMLDivElement>(null);
-  const formRef = useRef<HTMLDivElement>(null);
-  const infoRef = useRef<HTMLDivElement>(null);
-
-  const [formState, setFormState] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
-
-  // Ganti dengan endpoint Formspree Anda, contoh: https://formspree.io/f/xabcdefg
-  const FORMSPREE_ENDPOINT = 'https://formspree.io/f/mbdnrpvl';
+  const [state, formAction, pending] = useActionState(submitContact, initialContactFormState);
+  const errorSummaryRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    return () => {};
-  }, []);
+    if (state.status === 'error') errorSummaryRef.current?.focus();
+  }, [state]);
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setFormState('submitting');
-
-    const formData = new FormData(e.currentTarget);
-    const data = Object.fromEntries(formData.entries());
-
-    try {
-      const response = await fetch(FORMSPREE_ENDPOINT, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify(data),
-      });
-
-      if (response.ok) {
-        setFormState('success');
-        (e.target as HTMLFormElement).reset();
-        setTimeout(() => setFormState('idle'), 5000);
-      } else {
-        setFormState('error');
-        setTimeout(() => setFormState('idle'), 3000);
-      }
-    } catch (error) {
-      console.error(error);
-      setFormState('error');
-      setTimeout(() => setFormState('idle'), 3000);
-    }
-  };
+  const fieldClass = 'mt-2 min-h-12 w-full rounded-xl border border-slate-300 bg-white px-4 text-base text-slate-900 shadow-sm transition-colors placeholder:text-slate-400 hover:border-slate-400 focus:border-blue-600 focus:outline-none focus:ring-4 focus:ring-blue-100 aria-[invalid=true]:border-red-500 aria-[invalid=true]:focus:ring-red-100';
+  const getError = (field: ContactField) => state.fieldErrors?.[field] ? t(`errors.${field}`) : null;
+  const summaryFields = fields.filter((field) => state.fieldErrors?.[field]);
+  const retryAfterMinutes = Math.max(1, Math.ceil((state.retryAfterSeconds ?? 0) / 60));
 
   return (
-    <section id="contact" ref={sectionRef} className="py-32 bg-[#030712] relative border-t border-white/5 overflow-hidden">
-      {/* Decorative blurred lights */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-blue-900/20 blur-[120px] rounded-full pointer-events-none"></div>
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-cyan-900/20 blur-[120px] rounded-full pointer-events-none"></div>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div ref={titleRef} className="text-center mb-20">
-          <h2 className="text-[clamp(2rem,4vw,3.5rem)] font-extrabold text-white tracking-tight mb-4">
-            {t('title')} <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">{t('titleHighlight')}</span>
-          </h2>
-          <p className="mt-4 text-xl text-gray-400 max-w-2xl mx-auto font-light">
-            {t('subtitle')}
-          </p>
-        </div>
-
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-          {/* Contact Info */}
-          <div ref={infoRef} className="space-y-10">
-            <div>
-              <h3 className="text-3xl font-bold text-white mb-8">{t('infoTitle')}</h3>
-              <p className="text-gray-400 font-light mb-12">
-                {t('infoDesc')}
-              </p>
-            </div>
-
-            <div className="space-y-8">
-              <div className="flex items-start group">
-                <div className="bg-white/5 border border-white/10 p-4 rounded-2xl text-cyan-400 mr-6 group-hover:bg-cyan-500/10 group-hover:border-cyan-500/30 transition-all duration-300">
-                  <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                  </svg>
-                </div>
-                <div>
-                  <h4 className="text-lg font-semibold text-white group-hover:text-cyan-400 transition-colors">{t('emailTitle')}</h4>
-                  <p className="text-gray-400 mt-1 font-light">hello@eldoradotech.com</p>
-                  <p className="text-gray-500 text-sm mt-1">{t('emailDesc')}</p>
-                </div>
-              </div>
-
-              <div className="flex items-start group">
-                <div className="bg-white/5 border border-white/10 p-4 rounded-2xl text-blue-400 mr-6 group-hover:bg-blue-500/10 group-hover:border-blue-500/30 transition-all duration-300">
-                  <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                  </svg>
-                </div>
-                <div>
-                  <h4 className="text-lg font-semibold text-white group-hover:text-blue-400 transition-colors">{t('officeTitle')}</h4>
-                  <p className="text-gray-400 mt-1 font-light">{t('officeAddress')}</p>
-                  <p className="text-gray-500 text-sm mt-1">{t('officeRegion')}</p>
-                </div>
-              </div>
+    <section id="contact" className="bg-blue-700 py-20 text-white sm:py-28">
+      <div className="site-shell grid gap-12 lg:grid-cols-[.8fr_1.2fr] lg:gap-16">
+        <div>
+          <p className="text-sm font-black uppercase tracking-[0.18em] text-orange-300">{t('eyebrow')}</p>
+          <h2 className="font-display mt-4 text-balance text-4xl tracking-tight sm:text-6xl">{t('title')} {t('titleHighlight')}</h2>
+          <p className="mt-6 max-w-xl text-lg leading-8 text-blue-100">{t('subtitle')}</p>
+          <div className="mt-12 space-y-5 border-t border-white/20 pt-8">
+            <a href="mailto:hello@eldoradotech.com" className="group flex min-h-14 items-center gap-4 rounded-xl text-blue-50 transition-colors hover:text-white">
+              <span className="grid h-12 w-12 place-items-center rounded-xl bg-white/10"><svg aria-hidden="true" className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 6h18v12H3z" /><path d="m3 7 9 6 9-6" /></svg></span>
+              <span><span className="block text-xs font-bold uppercase tracking-[0.12em] text-blue-200">{t('emailTitle')}</span><span className="mt-1 block font-semibold">hello@eldoradotech.com</span></span>
+            </a>
+            <div className="flex items-center gap-4">
+              <span className="grid h-12 w-12 place-items-center rounded-xl bg-white/10"><svg aria-hidden="true" className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z" /><circle cx="12" cy="10" r="2.5" /></svg></span>
+              <span><span className="block text-xs font-bold uppercase tracking-[0.12em] text-blue-200">{t('officeTitle')}</span><span className="mt-1 block font-semibold">{t('officeAddress')}</span></span>
             </div>
           </div>
+        </div>
 
-          {/* Contact Form */}
-          <div ref={formRef} className="bg-white/[0.02] border border-white/10 backdrop-blur-xl rounded-3xl p-8 lg:p-10 relative overflow-hidden">
-            {/* Form Inner Glow */}
-            <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 to-blue-500/5 pointer-events-none"></div>
+        <div className="rounded-3xl bg-white p-6 text-slate-900 shadow-[0_28px_80px_rgba(15,23,42,0.28)] sm:p-9">
+          <h3 className="text-2xl font-extrabold tracking-tight">{t('infoTitle')}</h3>
+          <p className="mt-2 text-sm leading-6 text-slate-600">{t('infoDesc')}</p>
 
-            {formState === 'success' && (
-              <div className="absolute inset-0 bg-[#0a0a0a]/90 backdrop-blur-md z-20 flex flex-col items-center justify-center text-center p-8">
-                <div className="w-16 h-16 bg-cyan-500/20 rounded-full flex items-center justify-center text-cyan-400 mb-4 border border-cyan-500/30">
-                  <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                </div>
-                <h3 className="text-2xl font-bold text-white mb-2">{t('formSuccessTitle')}</h3>
-                <p className="text-gray-400 font-light">{t('formSuccessDesc')}</p>
+          <form action={formAction} className="mt-7 space-y-5" noValidate>
+            <input type="hidden" name="locale" value={locale} />
+            <div className="absolute -left-[10000px] top-auto h-px w-px overflow-hidden" aria-hidden="true">
+              <label htmlFor="website">Website<input id="website" name="website" tabIndex={-1} autoComplete="off" /></label>
+            </div>
+
+            {state.status === 'error' && (
+              <div ref={errorSummaryRef} tabIndex={-1} role="alert" aria-labelledby="contact-error-title" className="rounded-2xl border border-red-200 bg-red-50 p-4 text-red-900 focus:outline-none focus:ring-4 focus:ring-red-100">
+                <p id="contact-error-title" className="font-bold">
+                  {state.errorType === 'validation' ? t('validationTitle') : state.errorType === 'rate-limit' ? t('rateLimitTitle') : t('submissionTitle')}
+                </p>
+                <p className="mt-1 text-sm leading-6">
+                  {state.errorType === 'configuration'
+                    ? t('configurationError')
+                    : state.errorType === 'submission'
+                      ? t('formErrorMsg')
+                      : state.errorType === 'rate-limit'
+                        ? t('rateLimitError', { minutes: retryAfterMinutes })
+                        : t('validationDesc')}
+                </p>
+                {summaryFields.length > 0 && (
+                  <ul className="mt-3 space-y-1 text-sm font-semibold">
+                    {summaryFields.map((field) => <li key={field}><a className="underline underline-offset-2" href={`#${field}`}>{getError(field)}</a></li>)}
+                  </ul>
+                )}
+                {state.errorType !== 'validation' && <a href="mailto:hello@eldoradotech.com" className="mt-3 inline-flex font-bold underline underline-offset-2">{t('emailFallback')}</a>}
               </div>
             )}
 
-            <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">{t('formName')}</label>
-                  <input type="text" id="name" name="name" required className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3.5 text-white placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500/50 transition-all" placeholder={t('formNamePlaceholder')} />
-                </div>
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">{t('formEmail')}</label>
-                  <input type="email" id="email" name="email" required className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3.5 text-white placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500/50 transition-all" placeholder={t('formEmailPlaceholder')} />
-                </div>
-              </div>
-
-              <div>
-                <label htmlFor="subject" className="block text-sm font-medium text-gray-300 mb-2">{t('formService')}</label>
-                <div className="relative">
-                  <select id="subject" name="subject" className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3.5 text-white focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500/50 transition-all appearance-none [&>option]:bg-gray-900">
-                    <option value="">{t('formServicePlaceholder')}</option>
-                    <option value="web">{t('serviceWeb')}</option>
-                    <option value="mobile">{t('serviceMobile')}</option>
-                    <option value="uiux">{t('serviceUiUx')}</option>
-                    <option value="cloud">{t('serviceCloud')}</option>
-                  </select>
-                  <div className="absolute inset-y-0 right-0 flex items-center px-4 pointer-events-none text-gray-500">
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
-                  </div>
-                </div>
-              </div>
-
-              <div>
-                <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-2">{t('formMessage')}</label>
-                <textarea id="message" name="message" rows={4} required className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3.5 text-white placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500/50 transition-all resize-none" placeholder={t('formMessagePlaceholder')}></textarea>
-              </div>
-
-              {formState === 'error' && (
-                <div className="text-red-400 text-sm bg-red-900/20 p-4 rounded-xl border border-red-500/30">
-                  {t('formErrorMsg')}
-                </div>
+            <div className="grid gap-5 sm:grid-cols-2">
+              <label className="text-sm font-bold text-slate-700" htmlFor="name">
+                {t('formName')}
+                <input className={fieldClass} id="name" name="name" required minLength={2} maxLength={80} autoComplete="name" placeholder={t('formNamePlaceholder')} aria-invalid={Boolean(state.fieldErrors?.name)} aria-describedby={state.fieldErrors?.name ? 'name-error' : undefined} />
+                {getError('name') && <span id="name-error" className="mt-2 block text-sm font-semibold text-red-700">{getError('name')}</span>}
+              </label>
+              <label className="text-sm font-bold text-slate-700" htmlFor="email">
+                {t('formEmail')}
+                <input className={fieldClass} id="email" name="email" type="email" required maxLength={254} autoComplete="email" inputMode="email" placeholder={t('formEmailPlaceholder')} aria-invalid={Boolean(state.fieldErrors?.email)} aria-describedby={state.fieldErrors?.email ? 'email-error' : undefined} />
+                {getError('email') && <span id="email-error" className="mt-2 block text-sm font-semibold text-red-700">{getError('email')}</span>}
+              </label>
+            </div>
+            <label className="block text-sm font-bold text-slate-700" htmlFor="service">
+              {t('formService')}
+              <select className={fieldClass} id="service" name="service" defaultValue="" required aria-invalid={Boolean(state.fieldErrors?.service)} aria-describedby={state.fieldErrors?.service ? 'service-error' : undefined}>
+                <option value="" disabled>{t('formServicePlaceholder')}</option>
+                <option value="web">{t('serviceWeb')}</option>
+                <option value="mobile">{t('serviceMobile')}</option>
+                <option value="uiux">{t('serviceUiUx')}</option>
+                <option value="cloud">{t('serviceCloud')}</option>
+              </select>
+              {getError('service') && <span id="service-error" className="mt-2 block text-sm font-semibold text-red-700">{getError('service')}</span>}
+            </label>
+            <label className="block text-sm font-bold text-slate-700" htmlFor="message">
+              {t('formMessage')}
+              <textarea className={`${fieldClass} min-h-32 py-3`} id="message" name="message" required minLength={20} maxLength={3000} placeholder={t('formMessagePlaceholder')} aria-invalid={Boolean(state.fieldErrors?.message)} aria-describedby={state.fieldErrors?.message ? 'message-help message-error' : 'message-help'} />
+              <span id="message-help" className="mt-2 block text-xs font-medium text-slate-500">{t('messageHelp')}</span>
+              {getError('message') && <span id="message-error" className="mt-2 block text-sm font-semibold text-red-700">{getError('message')}</span>}
+            </label>
+            <button type="submit" disabled={pending} data-cta="contact-submit" className="group inline-flex min-h-13 w-full items-center justify-center rounded-xl bg-orange-600 px-6 font-bold text-white transition-colors duration-200 hover:bg-orange-700 disabled:cursor-wait disabled:opacity-70">
+              {pending ? t('formSending') : t('formSubmit')}
+              {pending ? (
+                <svg aria-hidden="true" className="ml-2 h-5 w-5 animate-spin motion-reduce:animate-none" viewBox="0 0 24 24" fill="none"><circle className="opacity-25" cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="3" /><path className="opacity-90" d="M21 12a9 9 0 0 0-9-9" stroke="currentColor" strokeWidth="3" strokeLinecap="round" /></svg>
+              ) : (
+                <svg aria-hidden="true" className="ml-2 h-5 w-5 transition-transform duration-200 group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
               )}
-
-              <button
-                type="submit"
-                disabled={formState === 'submitting'}
-                className="w-full bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-bold py-4 rounded-xl transition-all duration-300 flex items-center justify-center space-x-2 disabled:opacity-70 shadow-[0_0_20px_rgba(34,211,238,0.2)] hover:shadow-[0_0_30px_rgba(34,211,238,0.4)]"
-              >
-                {formState === 'submitting' ? (
-                  <>
-                    <svg className="animate-spin h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                    </svg>
-                    <span>{t('formSending')}</span>
-                  </>
-                ) : (
-                  <>
-                    <span>{t('formSubmit')}</span>
-                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                    </svg>
-                  </>
-                )}
-              </button>
-            </form>
-          </div>
+            </button>
+            <p aria-live="polite" className="sr-only">{pending ? t('formSending') : ''}</p>
+          </form>
         </div>
       </div>
     </section>

@@ -16,9 +16,10 @@
     "contact": "Kontak"
   },
   "Contact": {
+    "eyebrow": "Mulai proyek",
     "title": "Hubungi",
     "titleHighlight": "Kami",
-    "subtitle": "Diskusikan proyek Anda dengan tim ahli kami. Kami siap membantu mewujudkan visi teknologi Anda.",
+    "subtitle": "Ceritakan kebutuhan, tantangan, atau ide produk Anda. Kami akan meninjau detailnya dan menghubungi Anda melalui email.",
     "emailTitle": "Email",
     "phoneTitle": "Telepon / WhatsApp",
     "officeTitle": "Kantor Pusat",
@@ -36,25 +37,40 @@
     "formSending": "Mengirim...",
     "formSuccessTitle": "Pesan Terkirim!",
     "formSuccessDesc": "Terima kasih telah menghubungi kami. Tim kami akan segera merespons pesan Anda.",
-    "infoTitle": "Informasi Kontak",
-    "infoDesc": "Kami siap membantu mendiskusikan kebutuhan digital Anda. Hubungi kami melalui salah satu saluran berikut.",
-    "emailDesc": "Kami membalas dalam 1x24 jam.",
+    "infoTitle": "Ceritakan kebutuhan Anda",
+    "infoDesc": "Semakin lengkap konteks yang diberikan, semakin mudah bagi kami menyiapkan pembahasan awal yang relevan.",
+    "emailDesc": "Gunakan email jika formulir tidak dapat dikirim.",
     "serviceWeb": "Pengembangan Web",
     "serviceMobile": "Aplikasi Mobile",
     "serviceUiUx": "Desain UI/UX",
     "serviceCloud": "Layanan Cloud",
-    "formErrorMsg": "Maaf, terjadi kesalahan saat mengirim pesan. Silakan coba lagi."
+    "messageHelp": "Tuliskan tujuan, ruang lingkup, dan target waktu jika sudah tersedia (minimal 20 karakter).",
+    "validationTitle": "Periksa kembali formulir",
+    "validationDesc": "Ada beberapa informasi yang belum lengkap atau belum sesuai.",
+    "submissionTitle": "Pesan belum dapat dikirim",
+    "rateLimitTitle": "Terlalu banyak percobaan",
+    "rateLimitError": "Silakan tunggu sekitar {minutes} menit sebelum mencoba mengirim pesan lagi.",
+    "configurationError": "Layanan formulir belum dikonfigurasi. Silakan hubungi kami melalui email.",
+    "formErrorMsg": "Terjadi kendala saat mengirim pesan. Coba kembali atau gunakan email agar percakapan tetap dapat dilanjutkan.",
+    "emailFallback": "Kirim melalui email",
+    "whatsappAria": "Diskusikan proyek melalui WhatsApp",
+    "errors": {
+      "name": "Masukkan nama lengkap antara 2–80 karakter.",
+      "email": "Masukkan alamat email yang valid.",
+      "service": "Pilih layanan yang dibutuhkan.",
+      "message": "Tuliskan detail proyek antara 20–3000 karakter."
+    }
   },
   "About": {
     "title": "Tentang",
     "titleHighlight": "Eldorado Tech",
     "whoWeAre": "Siapa Kami",
-    "desc1": "Didirikan dengan keyakinan bahwa teknologi harus dapat diakses, efisien, dan didesain dengan indah, Eldorado Tech adalah agensi pengembangan perangkat lunak terkemuka yang berbasis di Purwokerto, Jawa Tengah, didedikasikan untuk mengubah tantangan kompleks menjadi pengalaman digital yang elegan.",
-    "desc2": "Tim insinyur dan desainer visioner kami bekerja secara kolaboratif untuk membangun aplikasi yang skalabel, merancang antarmuka pengguna yang intuitif, dan memberikan solusi andal yang mendorong pertumbuhan bisnis.",
-    "stat1Value": "50+",
-    "stat1Label": "Proyek Selesai",
-    "stat2Value": "100%",
-    "stat2Label": "Kepuasan Klien"
+    "desc1": "Didirikan dengan keyakinan bahwa teknologi harus dapat diakses, efisien, dan dirancang dengan baik, Eldorado Tech adalah agensi pengembangan perangkat lunak berbasis di Purwokerto, Jawa Tengah, yang membantu mengubah tantangan bisnis menjadi pengalaman digital.",
+    "desc2": "Kami menggabungkan keahlian pengembangan dan desain untuk membangun aplikasi yang skalabel, antarmuka yang intuitif, dan solusi yang dapat dipelihara sesuai kebutuhan bisnis.",
+    "stat1Value": "Kustom",
+    "stat1Label": "Solusi sesuai kebutuhan",
+    "stat2Value": "End-to-end",
+    "stat2Label": "Dari strategi hingga peluncuran"
   },
   "Services": {
     "title": "Keahlian Kami",
@@ -67,8 +83,9 @@
     "s3Desc": "Desain berpusat pada pengguna yang menggabungkan estetika visual memukau dengan fungsionalitas intuitif untuk memikat audiens Anda."
   },
   "Portfolio": {
-    "title": "Karya Terbaik Kami",
-    "subtitle": "Berbagai solusi digital yang telah kami bangun untuk mentransformasi bisnis klien kami.",
+    "title": "Eksplorasi Solusi",
+    "subtitle": "Contoh jenis solusi digital yang dapat kami rancang dan kembangkan sesuai kebutuhan bisnis.",
+    "conceptLabel": "Contoh",
     "p1Title": "E-Commerce Nasional",
     "p1Cat": "Web Development",
     "p1Desc": "Platform e-commerce dengan sistem pembayaran terintegrasi dan manajemen inventaris real-time.",
@@ -98,32 +115,16 @@
     "q4": "Bagaimana sistem pembayaran untuk layanan pengembangan?",
     "a4": "Kami menerapkan sistem termin (milestone) yang disepakati di awal kontrak. Biasanya dibagi menjadi 3 tahap: Down Payment (30%), Pertengahan Proyek (40%), dan Pelunasan saat serah terima (30%)."
   },
-  "Team": {
-    "title": "Tim Dibalik Layar",
-    "subtitle": "Para ahli yang berdedikasi untuk memberikan hasil terbaik untuk Anda.",
-    "role1": "Chief Executive Officer",
-    "role2": "Chief Technology Officer",
-    "role3": "Lead UI/UX Designer",
-    "role4": "Head of Marketing"
-  },
-  "Testimonial": {
-    "title": "Apa Kata Klien Kami",
-    "subtitle": "Kepercayaan klien adalah aset berharga kami.",
-    "role1": "CEO, TechNusantara",
-    "content1": "Kerja sama dengan Eldorado Tech sangat memuaskan. Mereka tidak hanya menulis kode, tapi juga memberikan solusi bisnis yang tepat sasaran.",
-    "role2": "Direktur Operasional, LogistikKu",
-    "content2": "Aplikasi yang dikembangkan berhasil memangkas waktu operasional kami hingga 40%. Desain UI/UX nya juga sangat mudah dipahami oleh staf kami.",
-    "role3": "Founder, StartUp Kreatif",
-    "content3": "Infrastruktur cloud yang dirancang sangat tangguh. Kami tidak pernah mengalami downtime lagi meski saat traffic sedang memuncak."
-  },
   "Newsletter": {
-    "title": "Berlangganan Newsletter Kami",
-    "subtitle": "Dapatkan update terbaru seputar teknologi, tips pengembangan web, dan penawaran eksklusif dari kami.",
-    "success": "Terima kasih telah berlangganan!",
-    "placeholder": "Masukkan email Anda...",
-    "btnSubmitting": "Mengirim...",
-    "btnSubmit": "Langganan",
-    "error": "Terjadi kesalahan, silakan coba lagi nanti.",
-    "spam": "Kami tidak akan pernah mengirimkan spam. Anda dapat berhenti berlangganan kapan saja."
+    "title": "Wawasan untuk keputusan digital yang lebih baik",
+    "subtitle": "Jelajahi artikel seputar teknologi, pengembangan web, dan strategi produk digital dari tim kami.",
+    "btnSubmit": "Baca Wawasan"
+  },
+  "ThankYou": {
+    "eyebrow": "Pesan diterima",
+    "title": "Terima kasih sudah menghubungi kami.",
+    "description": "Detail proyek Anda telah dikirim. Tim Eldorado Tech akan meninjaunya dan melanjutkan percakapan melalui alamat email yang Anda berikan.",
+    "backHome": "Kembali ke beranda",
+    "readBlog": "Baca wawasan"
   }
 }

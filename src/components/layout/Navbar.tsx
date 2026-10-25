@@ -1,101 +1,93 @@
 'use client';
+
 import { Link } from '@/i18n/routing';
 import Image from 'next/image';
-import { useState, useEffect } from 'react';
-import { useTranslations, useLocale } from 'next-intl';
-import { usePathname } from '@/i18n/routing';
+import { useTranslations } from 'next-intl';
+import { useEffect, useState } from 'react';
 import LanguageSwitcher from '../ui/LanguageSwitcher';
 
 export default function Navbar() {
   const t = useTranslations('Navigation');
-  const locale = useLocale();
-  const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
-  const closeMenu = () => setIsOpen(false);
-
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener('scroll', handleScroll);
+    const handleScroll = () => setScrolled(window.scrollY > 12);
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  useEffect(() => {
-    setTimeout(() => setIsOpen(false), 0);
-  }, [pathname, locale]);
-
   return (
-    <>
-      <nav className={`fixed z-[100] transition-all duration-300 left-1/2 -translate-x-1/2 ${scrolled ? 'top-4 w-[calc(100%-2rem)] md:w-auto md:min-w-[700px]' : 'top-6 w-[calc(100%-2rem)] md:w-[800px]'} border border-white/10 bg-black/40 backdrop-blur-xl shadow-2xl rounded-full`}>
-        <div className="px-4 sm:px-6">
-          <div className="flex items-center justify-between h-14 md:h-16">
-            <div className="flex-shrink-0 flex items-center">
-              <Link 
-                href="/" 
-                className="flex items-center gap-2" 
-                aria-label="Eldorado Tech"
-                onClick={(e) => {
-                  if (pathname === '/') {
-                    e.preventDefault();
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                  }
-                }}
-              >
-                <Image src="/logo.png" alt="Eldorado Tech" width={36} height={36} className="h-9 w-9 object-contain drop-shadow-[0_0_8px_rgba(255,255,255,0.3)]" priority />
+    <header className={`fixed inset-x-0 top-0 z-[100] transition-all duration-200 ${scrolled ? 'py-2' : 'py-4'}`}>
+      <nav aria-label="Main navigation" className="site-shell">
+        <div className={`flex h-16 items-center justify-between rounded-2xl border px-3 shadow-[0_12px_40px_rgba(15,23,42,0.08)] backdrop-blur-xl transition-colors sm:px-4 ${scrolled ? 'border-slate-200/90 bg-white/95' : 'border-white/80 bg-white/80'}`}>
+          <Link
+            href="/"
+            className="group flex min-h-11 items-center gap-3 rounded-xl px-2"
+            aria-label="Eldorado Tech home"
+          >
+            <span aria-hidden="true" className="relative h-12 w-32 overflow-hidden rounded-xl bg-white shadow-[0_8px_20px_rgba(29,78,216,0.12)] ring-1 ring-slate-200/70 transition-transform duration-200 group-hover:-rotate-1">
+              <Image
+                src="/logo.png"
+                alt=""
+                fill
+                sizes="128px"
+                className="object-cover object-[center_47%]"
+              />
+            </span>
+          </Link>
+
+          <div className="hidden items-center gap-1 lg:flex">
+            {[
+              ['about', '/#about'],
+              ['services', '/#services'],
+              ['portfolio', '/#portfolio'],
+            ].map(([label, href]) => (
+              <Link key={label} href={href} className="rounded-lg px-3 py-2.5 text-sm font-semibold text-slate-600 transition-colors hover:bg-blue-50 hover:text-blue-700">
+                {t(label)}
               </Link>
-            </div>
-            
-            <div className="hidden md:flex items-center space-x-6 ml-auto">
-              <Link href="/#about" className="text-gray-300 hover:text-cyan-400 text-sm font-medium transition-colors duration-300">{t('about')}</Link>
-              <Link href="/#services" className="text-gray-300 hover:text-cyan-400 text-sm font-medium transition-colors duration-300">{t('services')}</Link>
-              <Link href="/#portfolio" className="text-gray-300 hover:text-cyan-400 text-sm font-medium transition-colors duration-300">{t('portfolio')}</Link>
-              <Link href="/blog" className="text-gray-300 hover:text-cyan-400 text-sm font-medium transition-colors duration-300">Blog</Link>
-              
-              <div className="h-4 w-px bg-white/20 mx-2"></div>
-              
-              <LanguageSwitcher />
-              
-              <Link href="/#contact" className="ml-2 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white px-5 py-2 rounded-full text-sm font-semibold transition-all duration-300 shadow-[0_0_15px_rgba(6,182,212,0.4)] hover:shadow-[0_0_25px_rgba(6,182,212,0.6)]">
-                {t('contact')}
-              </Link>
-            </div>
-            
-            <div className="flex md:hidden items-center gap-4">
-              <LanguageSwitcher />
-              <button onClick={() => setIsOpen(!isOpen)} className="inline-flex items-center justify-center text-gray-300 hover:text-cyan-400 p-1">
-                <span className="sr-only">Open main menu</span>
-                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d={isOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"} />
-                </svg>
-              </button>
-            </div>
+            ))}
+            <Link href="/blog" className="rounded-lg px-3 py-2.5 text-sm font-semibold text-slate-600 transition-colors hover:bg-blue-50 hover:text-blue-700">Blog</Link>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <div className="hidden sm:block"><LanguageSwitcher /></div>
+            <Link href="/#contact" className="hidden min-h-11 items-center justify-center rounded-xl bg-orange-600 px-5 text-sm font-bold text-white shadow-[0_8px_24px_rgba(234,88,12,0.2)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-orange-700 sm:inline-flex">
+              {t('contact')}
+            </Link>
+            <button
+              type="button"
+              onClick={() => setIsOpen((value) => !value)}
+              className="grid h-11 w-11 place-items-center rounded-xl border border-slate-200 bg-white text-slate-800 transition-colors hover:bg-slate-50 lg:hidden"
+              aria-expanded={isOpen}
+              aria-controls="mobile-navigation"
+              aria-label={isOpen ? 'Close navigation' : 'Open navigation'}
+            >
+              {isOpen ? (
+                <svg aria-hidden="true" className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M6 6l12 12M18 6L6 18" /></svg>
+              ) : (
+                <svg aria-hidden="true" className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 7h16M4 12h16M4 17h16" /></svg>
+              )}
+            </button>
           </div>
         </div>
-      </nav>
 
-      {/* Mobile menu full screen overlay */}
-      {isOpen && (
-        <div className="md:hidden fixed inset-0 z-[90] bg-black/60 backdrop-blur-sm pointer-events-auto transition-opacity" onClick={closeMenu}>
-          <div className="fixed inset-x-4 top-24 bottom-auto max-h-[80vh] overflow-y-auto bg-[#0a0a0a]/95 backdrop-blur-xl border border-white/10 shadow-2xl rounded-3xl pointer-events-auto" onClick={e => e.stopPropagation()}>
-            <div className="px-5 py-6 space-y-3">
-              <Link href="/#about" onClick={closeMenu} className="flex w-full items-center text-left text-gray-300 hover:text-cyan-400 hover:bg-white/5 px-4 py-3 rounded-xl font-medium transition-colors">{t('about')}</Link>
-              <Link href="/#services" onClick={closeMenu} className="flex w-full items-center text-left text-gray-300 hover:text-cyan-400 hover:bg-white/5 px-4 py-3 rounded-xl font-medium transition-colors">{t('services')}</Link>
-              <Link href="/#portfolio" onClick={closeMenu} className="flex w-full items-center text-left text-gray-300 hover:text-cyan-400 hover:bg-white/5 px-4 py-3 rounded-xl font-medium transition-colors">{t('portfolio')}</Link>
-              <Link href="/blog" onClick={closeMenu} className="flex w-full items-center text-left text-gray-300 hover:text-cyan-400 hover:bg-white/5 px-4 py-3 rounded-xl font-medium transition-colors">Blog</Link>
-              <Link href="/admin/index.html" onClick={closeMenu} className="flex w-full items-center text-left text-gray-400 hover:text-cyan-400 hover:bg-white/5 px-4 py-3 rounded-xl font-medium transition-colors gap-3">
-                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
-                </svg>
-                CMS Admin
-              </Link>
-              <div className="pt-4 mt-2 border-t border-white/10">
-                <Link href="/#contact" onClick={closeMenu} className="flex w-full items-center justify-center text-white bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 px-4 py-3.5 rounded-xl font-semibold shadow-[0_0_15px_rgba(6,182,212,0.3)]">{t('contact')}</Link>
+        {isOpen && (
+          <div id="mobile-navigation" className="mt-2 rounded-2xl border border-slate-200 bg-white p-3 shadow-[0_20px_60px_rgba(15,23,42,0.14)] lg:hidden">
+            <div className="grid gap-1">
+              <Link href="/#about" onClick={() => setIsOpen(false)} className="rounded-xl px-4 py-3 font-semibold text-slate-700 hover:bg-blue-50 hover:text-blue-700">{t('about')}</Link>
+              <Link href="/#services" onClick={() => setIsOpen(false)} className="rounded-xl px-4 py-3 font-semibold text-slate-700 hover:bg-blue-50 hover:text-blue-700">{t('services')}</Link>
+              <Link href="/#portfolio" onClick={() => setIsOpen(false)} className="rounded-xl px-4 py-3 font-semibold text-slate-700 hover:bg-blue-50 hover:text-blue-700">{t('portfolio')}</Link>
+              <Link href="/blog" onClick={() => setIsOpen(false)} className="rounded-xl px-4 py-3 font-semibold text-slate-700 hover:bg-blue-50 hover:text-blue-700">Blog</Link>
+              <div className="mt-2 flex items-center justify-between gap-3 border-t border-slate-100 pt-3 sm:hidden">
+                <LanguageSwitcher />
+                <Link href="/#contact" onClick={() => setIsOpen(false)} className="inline-flex min-h-11 flex-1 items-center justify-center rounded-xl bg-orange-600 px-4 text-sm font-bold text-white">{t('contact')}</Link>
               </div>
             </div>
           </div>
-        </div>
-      )}
-    </>
+        )}
+      </nav>
+    </header>
   );
 }

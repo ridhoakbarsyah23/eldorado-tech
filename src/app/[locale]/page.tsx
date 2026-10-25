@@ -7,10 +7,11 @@ import FAQSection from "@/components/sections/FAQSection";
 import ContactSection from "@/components/sections/ContactSection";
 import NewsletterSection from "@/components/sections/NewsletterSection";
 import Footer from "@/components/layout/Footer";
+import WhatsAppCta from "@/components/ui/WhatsAppCta";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-gradient-to-br from-white to-blue-50 text-gray-900 selection:bg-blue-500/30 selection:text-blue-900 overflow-x-hidden">
+    <main className="min-h-screen overflow-x-hidden bg-[#f8fafc] text-[#172033]">
       <Navbar />
       <HeroSection />
       <AboutSection />
@@ -20,6 +21,7 @@ export default function Home() {
       <ContactSection />
       <NewsletterSection />
       <Footer />
+      <WhatsAppCta />
     </main>
   );
 }
