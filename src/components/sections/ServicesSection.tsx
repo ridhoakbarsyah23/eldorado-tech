@@ -1,108 +1,38 @@
 'use client';
-import { useEffect, useRef } from 'react';
-import gsap from 'gsap';
+
 import { useTranslations } from 'next-intl';
+
+const icons = [
+  <svg key="code" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14" /></svg>,
+  <svg key="cloud" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M7 18h10a4 4 0 0 0 .6-7.95A6 6 0 0 0 6.2 8.7 4.7 4.7 0 0 0 7 18Z" /></svg>,
+  <svg key="design" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M12 3a9 9 0 1 0 0 18h1.4a1.6 1.6 0 0 0 0-3.2h-1a1.8 1.8 0 0 1 0-3.6H15A6 6 0 0 0 15 3h-3Z" /><path d="M7.5 10h.01M9 6.5h.01M14 6.5h.01" /></svg>,
+];
 
 export default function ServicesSection() {
   const t = useTranslations('Services');
-  const sectionRef = useRef<HTMLElement>(null);
-  const titleRef = useRef<HTMLDivElement>(null);
-  const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
-
   const services = [
-    {
-      title: t('s1Title'),
-      description: t('s1Desc'),
-      icon: (
-        <svg className="w-8 h-8 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-        </svg>
-      ),
-      className: "lg:col-span-2",
-      gradient: "from-cyan-500/10 to-blue-500/10",
-      borderGlow: "group-hover:border-cyan-500/50"
-    },
-    {
-      title: t('s2Title'),
-      description: t('s2Desc'),
-      icon: (
-        <svg className="w-8 h-8 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" />
-        </svg>
-      ),
-      className: "lg:col-span-1 lg:row-span-2",
-      gradient: "from-indigo-500/10 to-purple-500/10",
-      borderGlow: "group-hover:border-indigo-500/50"
-    },
-    {
-      title: t('s3Title'),
-      description: t('s3Desc'),
-      icon: (
-        <svg className="w-8 h-8 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
-        </svg>
-      ),
-      className: "lg:col-span-2",
-      gradient: "from-blue-500/10 to-cyan-500/10",
-      borderGlow: "group-hover:border-blue-500/50"
-    }
+    [t('s1Title'), t('s1Desc')],
+    [t('s2Title'), t('s2Desc')],
+    [t('s3Title'), t('s3Desc')],
   ];
 
-  useEffect(() => {
-    // Basic GSAP animation for elements if needed
-    return () => {};
-  }, []);
-
   return (
-    <section id="services" ref={sectionRef} className="py-32 bg-[#030712] relative border-t border-white/10 overflow-hidden">
-      
-      {/* Decorative Gradients */}
-      <div className="absolute top-0 right-0 w-1/2 h-96 bg-blue-900/20 blur-[120px] rounded-full pointer-events-none"></div>
-      <div className="absolute bottom-0 left-0 w-1/2 h-96 bg-indigo-900/20 blur-[120px] rounded-full pointer-events-none"></div>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div ref={titleRef} className="text-center mb-20">
-          <h2 className="text-[clamp(2rem,4vw,3.5rem)] font-extrabold text-white tracking-tight mb-6">
-            {t('title')}
-          </h2>
-          <p className="mt-4 text-xl text-gray-400 max-w-2xl mx-auto font-light">
-            {t('subtitle')}
-          </p>
+    <section id="services" className="bg-[#f8fafc] py-20 sm:py-28">
+      <div className="site-shell">
+        <div className="max-w-3xl">
+          <p className="text-sm font-black uppercase tracking-[0.18em] text-blue-700">Capabilities</p>
+          <h2 className="font-display mt-4 text-balance text-4xl tracking-tight text-slate-950 sm:text-6xl">{t('title')}</h2>
+          <p className="mt-5 text-lg leading-8 text-slate-600">{t('subtitle')}</p>
         </div>
-        
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {services.map((service, index) => (
-            <div 
-              key={index} 
-              ref={el => { cardsRef.current[index] = el; }} 
-              className={`group relative bg-white/[0.02] backdrop-blur-sm border border-white/10 rounded-3xl p-8 lg:p-10 transition-all duration-500 hover:bg-white/[0.04] overflow-hidden ${service.className} ${service.borderGlow}`}
-            >
-              {/* Background Hover Glow */}
-              <div className={`absolute inset-0 bg-gradient-to-br ${service.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`}></div>
-              
-              <div className="relative z-10 h-full flex flex-col">
-                <div className="bg-white/5 border border-white/10 w-16 h-16 rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-500 shadow-lg">
-                  {service.icon}
-                </div>
-                
-                <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-gray-400 transition-all">
-                  {service.title}
-                </h3>
-                
-                <p className="text-gray-400 leading-relaxed font-light">
-                  {service.description}
-                </p>
-                
-                {/* Minimalist arrow at bottom */}
-                <div className="mt-auto pt-8 flex justify-end opacity-0 group-hover:opacity-100 translate-x-4 group-hover:translate-x-0 transition-all duration-300">
-                  <div className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center bg-white/5">
-                    <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                    </svg>
-                  </div>
-                </div>
-              </div>
-            </div>
+        <div className="mt-12 grid gap-5 lg:grid-cols-3">
+          {services.map(([title, description], index) => (
+            <article key={title} className={`group relative overflow-hidden rounded-3xl border p-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_22px_50px_rgba(15,23,42,0.1)] sm:p-8 ${index === 0 ? 'border-blue-700 bg-blue-700 text-white' : 'border-slate-200 bg-white text-slate-950'}`}>
+              <div className={`grid h-14 w-14 place-items-center rounded-2xl [&>svg]:h-7 [&>svg]:w-7 ${index === 0 ? 'bg-white/14 text-white' : 'bg-blue-50 text-blue-700'}`}>{icons[index]}</div>
+              <p className={`mt-10 font-mono text-xs font-bold tracking-[0.16em] ${index === 0 ? 'text-blue-200' : 'text-slate-400'}`}>0{index + 1}</p>
+              <h3 className="mt-3 text-2xl font-extrabold tracking-tight">{title}</h3>
+              <p className={`mt-4 leading-7 ${index === 0 ? 'text-blue-100' : 'text-slate-600'}`}>{description}</p>
+              <div className={`mt-8 h-px transition-all duration-300 group-hover:w-full ${index === 0 ? 'w-16 bg-orange-400' : 'w-10 bg-blue-600'}`} aria-hidden="true" />
+            </article>
           ))}
         </div>
       </div>

@@ -1,15 +1,20 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans, Geist_Mono } from "next/font/google";
+import { Calistoga, Geist_Mono, Inter } from "next/font/google";
 import "../globals.css";
-import dynamic from 'next/dynamic';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import { routing } from '@/i18n/routing';
 
 import { notFound } from 'next/navigation';
 
-const jakartaSans = Plus_Jakarta_Sans({
-  variable: "--font-jakarta-sans",
+const inter = Inter({
+  variable: "--font-inter",
+  subsets: ["latin"],
+});
+
+const calistoga = Calistoga({
+  variable: "--font-calistoga",
+  weight: "400",
   subsets: ["latin"],
 });
 
@@ -19,33 +24,27 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://eldoradotech.com"),
   title: {
-    default: "Eldorado Tech | Solusi IT & Software Development Premium",
+    default: "Eldorado Tech | Software Development & Digital Solutions",
     template: "%s | Eldorado Tech"
   },
-  description: "Eldorado Tech adalah agensi pengembangan perangkat lunak terkemuka di Purwokerto. Kami ahli dalam Web Development, Mobile Apps, UI/UX Design, dan Cloud Infrastructure.",
+  description: "Software house berbasis di Purwokerto untuk pengembangan web, aplikasi mobile, desain UI/UX, dan infrastruktur cloud.",
   keywords: ["Software House", "Web Development Purwokerto", "IT Consultant", "Pembuatan Aplikasi", "Cloud Infrastructure", "Eldorado Tech"],
-  authors: [{ name: "Eldorado Tech Team" }],
+  authors: [{ name: "Eldorado Tech" }],
   creator: "Eldorado Tech",
   openGraph: {
     type: "website",
     locale: "id_ID",
-    url: "https://eldoradotech.com", // Ganti dengan domain asli nanti
-    title: "Eldorado Tech | Solusi IT & Software Development Premium",
-    description: "Agensi pengembangan perangkat lunak terkemuka untuk membantu transformasi digital bisnis Anda.",
+    url: "/id",
+    title: "Eldorado Tech | Software Development & Digital Solutions",
+    description: "Solusi pengembangan perangkat lunak untuk membantu bisnis membangun produk digital yang cepat, aman, dan mudah digunakan.",
     siteName: "Eldorado Tech",
-    images: [{
-      url: "https://eldoradotech.com/og-image.jpg", // Ganti dengan URL gambar asli nanti
-      width: 1200,
-      height: 630,
-      alt: "Eldorado Tech Banner"
-    }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Eldorado Tech | Solusi IT & Software Development Premium",
-    description: "Agensi pengembangan perangkat lunak terkemuka untuk membantu transformasi digital bisnis Anda.",
-    creator: "@eldoradotech",
+    title: "Eldorado Tech | Software Development & Digital Solutions",
+    description: "Solusi pengembangan perangkat lunak untuk produk digital yang cepat, aman, dan mudah digunakan.",
   },
   robots: {
     index: true,
@@ -82,10 +81,10 @@ export default async function LocaleLayout({
   return (
     <html
       lang={locale}
-      className={`dark ${jakartaSans.variable} ${geistMono.variable} font-sans h-full antialiased scroll-smooth`}
+      className={`${inter.variable} ${calistoga.variable} ${geistMono.variable} h-full antialiased`}
       data-scroll-behavior="smooth"
     >
-      <body className="min-h-full flex flex-col">
+      <body className="flex min-h-full flex-col">
         <NextIntlClientProvider messages={messages}>
           {children}
         </NextIntlClientProvider>

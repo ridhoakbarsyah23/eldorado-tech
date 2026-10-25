@@ -16,9 +16,10 @@
     "contact": "Contact"
   },
   "Contact": {
+    "eyebrow": "Start a project",
     "title": "Contact",
     "titleHighlight": "Us",
-    "subtitle": "Discuss your project with our expert team. We are ready to help realize your technology vision.",
+    "subtitle": "Tell us about your needs, challenges, or product idea. We will review the details and follow up by email.",
     "emailTitle": "Email",
     "phoneTitle": "Phone / WhatsApp",
     "officeTitle": "Headquarters",
@@ -36,25 +37,38 @@
     "formSending": "Sending...",
     "formSuccessTitle": "Message Sent!",
     "formSuccessDesc": "Thank you for contacting us. Our team will respond to your message shortly.",
-    "infoTitle": "Contact Information",
-    "infoDesc": "We are ready to help discuss your digital needs. Contact us through one of the following channels.",
-    "emailDesc": "We usually reply within 24 hours.",
+    "infoTitle": "Tell us what you need",
+    "infoDesc": "The more context you provide, the easier it is for us to prepare a relevant first conversation.",
+    "emailDesc": "Use email if the form cannot be submitted.",
     "serviceWeb": "Web Development",
     "serviceMobile": "Mobile App",
     "serviceUiUx": "UI/UX Design",
     "serviceCloud": "Cloud Services",
-    "formErrorMsg": "Sorry, an error occurred while sending the message. Please try again."
+    "messageHelp": "Include your goal, scope, and target timeline if available (at least 20 characters).",
+    "validationTitle": "Please check the form",
+    "validationDesc": "Some information is incomplete or needs correction.",
+    "submissionTitle": "Your message could not be sent",
+    "configurationError": "The form service has not been configured. Please contact us by email.",
+    "formErrorMsg": "Something went wrong while sending your message. Try again or use email to continue the conversation.",
+    "emailFallback": "Send an email instead",
+    "whatsappAria": "Discuss a project through WhatsApp",
+    "errors": {
+      "name": "Enter a full name between 2–80 characters.",
+      "email": "Enter a valid email address.",
+      "service": "Select the service you need.",
+      "message": "Describe your project in 20–3000 characters."
+    }
   },
   "About": {
     "title": "About",
     "titleHighlight": "Eldorado Tech",
     "whoWeAre": "Who we are",
-    "desc1": "Founded on the belief that technology should be accessible, efficient, and beautifully designed, Eldorado Tech is a leading software development agency based in Purwokerto, Central Java, dedicated to turning complex challenges into elegant digital experiences.",
-    "desc2": "Our visionary team of engineers and designers work collaboratively to build scalable applications, craft intuitive user interfaces, and deliver reliable solutions that drive business growth.",
-    "stat1Value": "50+",
-    "stat1Label": "Completed Projects",
-    "stat2Value": "100%",
-    "stat2Label": "Client Satisfaction"
+    "desc1": "Founded on the belief that technology should be accessible, efficient, and thoughtfully designed, Eldorado Tech is a software development agency based in Purwokerto, Central Java, helping turn business challenges into digital experiences.",
+    "desc2": "We combine development and design expertise to build scalable applications, intuitive interfaces, and maintainable solutions shaped around business needs.",
+    "stat1Value": "Custom",
+    "stat1Label": "Solutions tailored to your needs",
+    "stat2Value": "End-to-end",
+    "stat2Label": "From strategy to launch"
   },
   "Services": {
     "title": "Our Expertise",
@@ -67,8 +81,9 @@
     "s3Desc": "User-centric design combining stunning visual aesthetics with intuitive functionality to captivate your audience."
   },
   "Portfolio": {
-    "title": "Our Best Work",
-    "subtitle": "Various digital solutions we have built to transform our clients' businesses.",
+    "title": "Solution Explorations",
+    "subtitle": "Examples of digital solutions we can design and develop around business needs.",
+    "conceptLabel": "Example",
     "p1Title": "National E-Commerce",
     "p1Cat": "Web Development",
     "p1Desc": "E-commerce platform with integrated payment system and real-time inventory management.",
@@ -98,32 +113,16 @@
     "q4": "What is the payment system for development services?",
     "a4": "We apply a milestone system agreed upon at the start of the contract. It's usually divided into 3 stages: Down Payment (30%), Mid-Project (40%), and Final Settlement upon handover (30%)."
   },
-  "Team": {
-    "title": "The Team Behind the Scenes",
-    "subtitle": "Dedicated experts committed to delivering the best results for you.",
-    "role1": "Chief Executive Officer",
-    "role2": "Chief Technology Officer",
-    "role3": "Lead UI/UX Designer",
-    "role4": "Head of Marketing"
-  },
-  "Testimonial": {
-    "title": "What Our Clients Say",
-    "subtitle": "Client trust is our most valuable asset.",
-    "role1": "CEO, TechNusantara",
-    "content1": "Working with Eldorado Tech was very satisfying. They don't just write code, they provide targeted business solutions.",
-    "role2": "Operations Director, LogistikKu",
-    "content2": "The application developed successfully cut our operational time by 40%. The UI/UX design is also very easy for our staff to understand.",
-    "role3": "Founder, StartUp Kreatif",
-    "content3": "The cloud infrastructure designed is very robust. We've never experienced downtime again even during peak traffic."
-  },
   "Newsletter": {
-    "title": "Subscribe to Our Newsletter",
-    "subtitle": "Get the latest updates on technology, web development tips, and exclusive offers from us.",
-    "success": "Thank you for subscribing!",
-    "placeholder": "Enter your email...",
-    "btnSubmitting": "Sending...",
-    "btnSubmit": "Subscribe",
-    "error": "An error occurred, please try again later.",
-    "spam": "We will never send spam. You can unsubscribe at any time."
+    "title": "Insights for better digital decisions",
+    "subtitle": "Explore practical articles on technology, web development, and digital product strategy from our team.",
+    "btnSubmit": "Read Insights"
+  },
+  "ThankYou": {
+    "eyebrow": "Message received",
+    "title": "Thank you for getting in touch.",
+    "description": "Your project details have been sent. The Eldorado Tech team will review them and continue the conversation using the email address you provided.",
+    "backHome": "Back to home",
+    "readBlog": "Read insights"
   }
 }

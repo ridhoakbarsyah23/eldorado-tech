@@ -1,151 +1,68 @@
 'use client';
+
 import { Link } from '@/i18n/routing';
-import { useEffect, useRef } from 'react';
-import gsap from 'gsap';
 import { useTranslations } from 'next-intl';
 
 export default function HeroSection() {
   const t = useTranslations('Hero');
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const textRef = useRef<HTMLDivElement>(null);
-  const visualRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      // Text animations
-      gsap.fromTo(
-        textRef.current!.children,
-        { y: 40, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 1,
-          stagger: 0.15,
-          ease: "power3.out",
-          delay: 0.2,
-        }
-      );
-
-      // Visual side animations
-      gsap.fromTo(
-        visualRef.current,
-        { scale: 0.9, opacity: 0, x: 40 },
-        {
-          scale: 1,
-          opacity: 1,
-          x: 0,
-          duration: 1.2,
-          ease: "power3.out",
-          delay: 0.4,
-        }
-      );
-
-      // Floating animation for the orbs
-      gsap.to('.hero-orb', {
-        y: 'random(-20, 20)',
-        x: 'random(-20, 20)',
-        rotation: 'random(-10, 10)',
-        duration: 'random(3, 5)',
-        repeat: -1,
-        yoyo: true,
-        ease: 'sine.inOut',
-        stagger: {
-          each: 0.5,
-          from: "random"
-        }
-      });
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
 
   return (
-    <div ref={sectionRef} className="relative min-h-[100svh] flex items-center justify-center pt-32 pb-20 overflow-hidden bg-[#030712]">
-      {/* Dynamic Background Noise & Global Glow */}
-      <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] pointer-events-none mix-blend-overlay"></div>
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-4xl h-[400px] bg-blue-600/10 rounded-full blur-[120px] pointer-events-none"></div>
-
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-8 items-center">
-
-          {/* Left: Text Content */}
-          <div ref={textRef} className="text-center lg:text-left flex flex-col items-center lg:items-start max-w-2xl mx-auto lg:mx-0">
-            <h1 className="text-[clamp(2.5rem,5vw,4.5rem)] font-extrabold tracking-tight mb-6 leading-[1.1]">
-              <span className="block text-white mb-2">{t('title1')}</span>
-              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-500 pb-2 drop-shadow-sm">
-                {t('title2')}
-              </span>
-            </h1>
-
-            <p className="mt-4 text-base md:text-xl text-gray-400 max-w-xl mb-10 leading-relaxed font-light">
-              {t('subtitle')}
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
-              <Link href="/#contact" className="group relative inline-flex items-center justify-center min-h-[3.25rem] px-8 rounded-full bg-white text-gray-950 font-bold hover:bg-gray-100 transition-all duration-300">
-                {t('cta_primary')}
-                <svg className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                </svg>
-              </Link>
-              <Link href="/#services" className="inline-flex items-center justify-center min-h-[3.25rem] px-8 rounded-full bg-white/5 text-white font-semibold hover:bg-white/10 transition-all backdrop-blur-md border border-white/10 hover:border-white/20">
-                {t('cta_secondary')}
-              </Link>
-            </div>
+    <section className="relative isolate overflow-hidden bg-[#f8fafc] pb-20 pt-36 sm:pb-28 sm:pt-44">
+      <div className="editorial-grid absolute inset-0 -z-20" aria-hidden="true" />
+      <div className="absolute -right-40 top-12 -z-10 h-[34rem] w-[34rem] rounded-full bg-blue-200/50 blur-3xl" aria-hidden="true" />
+      <div className="site-shell grid items-center gap-16 lg:grid-cols-[1.05fr_.95fr]">
+        <div className="max-w-3xl">
+          <div className="mb-7 inline-flex max-w-full items-center gap-2 rounded-full border border-blue-200 bg-white/80 px-3 py-1.5 text-center text-[10px] font-bold uppercase tracking-[0.1em] text-blue-800 shadow-sm sm:text-xs sm:tracking-[0.14em]">
+            <span className="h-2 w-2 rounded-full bg-orange-500" aria-hidden="true" />
+            Digital product studio · Purwokerto
           </div>
+          <h1 className="font-display text-balance text-[2.8rem] leading-[0.96] tracking-[-0.045em] text-slate-950 sm:text-[clamp(3.25rem,8vw,6.8rem)] sm:leading-[0.94]">
+            {t('title1')} <span className="text-blue-700">{t('title2')}</span>
+          </h1>
+          <p className="mt-7 max-w-2xl text-lg leading-8 text-slate-600 sm:text-xl">
+            {t('subtitle')}
+          </p>
+          <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+            <Link href="/#contact" className="group inline-flex min-h-13 items-center justify-center rounded-xl bg-orange-600 px-6 font-bold text-white shadow-[0_12px_30px_rgba(234,88,12,0.22)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-orange-700">
+              {t('cta_primary')}
+              <svg aria-hidden="true" className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+            </Link>
+            <Link href="/#services" className="inline-flex min-h-13 items-center justify-center rounded-xl border border-slate-300 bg-white px-6 font-bold text-slate-800 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-blue-300 hover:text-blue-700">
+              {t('cta_secondary')}
+            </Link>
+          </div>
+          <div className="mt-10 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold text-slate-600">
+            {[t('feature1'), t('feature2'), t('feature3')].map((feature) => (
+              <span key={feature} className="flex items-center gap-2"><span className="grid h-5 w-5 place-items-center rounded-full bg-blue-100 text-blue-700" aria-hidden="true">✓</span>{feature}</span>
+            ))}
+          </div>
+        </div>
 
-          {/* Right: Visual Abstract */}
-          <div ref={visualRef} className="relative hidden lg:flex h-[600px] w-full items-center justify-center">
-            {/* Orbs */}
-            <div className="hero-orb absolute top-[10%] left-[20%] w-64 h-64 bg-cyan-500/30 rounded-full blur-[80px]"></div>
-            <div className="hero-orb absolute bottom-[20%] right-[10%] w-80 h-80 bg-indigo-600/30 rounded-full blur-[90px]"></div>
-            <div className="hero-orb absolute top-[40%] right-[30%] w-48 h-48 bg-blue-500/20 rounded-full blur-[60px]"></div>
-
-            {/* Glass Card 1 */}
-            <div className="absolute top-[20%] right-[15%] w-64 p-6 rounded-2xl bg-white/[0.03] backdrop-blur-xl border border-white/10 shadow-2xl rotate-12 hover:rotate-0 transition-transform duration-500 cursor-pointer">
-              <div className="flex gap-4 items-center mb-4">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center shadow-lg">
-                  <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-                  </svg>
-                </div>
-                <div>
-                  <div className="h-2.5 w-24 bg-white/20 rounded-full mb-2"></div>
-                  <div className="h-2 w-16 bg-white/10 rounded-full"></div>
-                </div>
+        <div className="relative mx-auto w-full max-w-xl lg:mx-0">
+          <div className="absolute -inset-5 -z-10 rotate-3 rounded-[2.5rem] bg-blue-700" aria-hidden="true" />
+          <div className="overflow-hidden rounded-[2rem] border border-white/70 bg-slate-950 p-5 shadow-[0_30px_80px_rgba(15,23,42,0.24)] sm:p-7">
+            <div className="mb-8 flex items-center justify-between">
+              <div className="flex items-center gap-2" aria-hidden="true"><span className="h-2.5 w-2.5 rounded-full bg-orange-500" /><span className="h-2.5 w-2.5 rounded-full bg-amber-300" /><span className="h-2.5 w-2.5 rounded-full bg-emerald-400" /></div>
+              <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-slate-500">Built for growth</span>
+            </div>
+            <div className="grid gap-4 sm:grid-cols-2">
+              <div className="rounded-2xl bg-white p-5 sm:row-span-2">
+                <span className="text-xs font-bold uppercase tracking-[0.14em] text-blue-700">01 · Strategy</span>
+                <div className="mt-12 space-y-3" aria-hidden="true"><div className="h-2 w-4/5 rounded bg-slate-200" /><div className="h-2 rounded bg-slate-100" /><div className="h-2 w-3/5 rounded bg-slate-100" /></div>
+                <div className="mt-8 flex items-end gap-2" aria-hidden="true">{[38, 58, 45, 78, 92].map((height, index) => <span key={height} className={`${index === 4 ? 'bg-orange-500' : 'bg-blue-200'} flex-1 rounded-t-md`} style={{ height }} />)}</div>
               </div>
-              <div className="space-y-2">
-                <div className="h-2 w-full bg-white/10 rounded-full"></div>
-                <div className="h-2 w-4/5 bg-white/10 rounded-full"></div>
-                <div className="h-2 w-full bg-white/10 rounded-full"></div>
+              <div className="rounded-2xl bg-blue-700 p-5 text-white">
+                <span className="text-xs font-bold uppercase tracking-[0.14em] text-blue-100">02 · Design</span>
+                <div className="mt-8 grid grid-cols-3 gap-2" aria-hidden="true"><span className="aspect-square rounded-lg bg-white/90" /><span className="aspect-square rounded-full bg-orange-400" /><span className="aspect-square rounded-lg border border-white/30" /></div>
+              </div>
+              <div className="rounded-2xl border border-white/10 bg-white/5 p-5 text-white">
+                <span className="text-xs font-bold uppercase tracking-[0.14em] text-blue-300">03 · Build</span>
+                <p className="mt-4 font-mono text-xs leading-6 text-slate-400"><span className="text-orange-400">const</span> idea = <span className="text-blue-300">&quot;impact&quot;</span>;<br />ship(idea);</p>
               </div>
             </div>
-
-            {/* Glass Card 2 */}
-            <div className="absolute bottom-[25%] left-[10%] w-72 p-6 rounded-2xl bg-white/[0.02] backdrop-blur-xl border border-white/10 shadow-2xl -rotate-6 hover:rotate-0 transition-transform duration-500 cursor-pointer">
-              <div className="flex items-end gap-3 h-24 mb-4 border-b border-white/10 pb-4">
-                <div className="w-1/4 h-[40%] bg-blue-500/50 rounded-t-sm"></div>
-                <div className="w-1/4 h-[70%] bg-indigo-500/50 rounded-t-sm"></div>
-                <div className="w-1/4 h-[100%] bg-cyan-400/80 rounded-t-sm relative">
-                  <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-8 h-8 bg-cyan-400 rounded-full blur-[10px]"></div>
-                </div>
-                <div className="w-1/4 h-[60%] bg-blue-400/50 rounded-t-sm"></div>
-              </div>
-              <div>
-                <div className="h-3 w-32 bg-white/20 rounded-full mb-2"></div>
-                <div className="h-2 w-20 bg-white/10 rounded-full"></div>
-              </div>
-            </div>
-
           </div>
         </div>
       </div>
-
-      {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center animate-bounce text-gray-500">
-        <span className="text-[10px] uppercase tracking-[0.2em] mb-2 font-medium">Scroll</span>
-        <div className="w-[1px] h-8 bg-gradient-to-b from-gray-500 to-transparent"></div>
-      </div>
-    </div>
+    </section>
   );
 }
