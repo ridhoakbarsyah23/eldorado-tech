@@ -27,25 +27,25 @@ export default function ContactSection() {
   const retryAfterMinutes = Math.max(1, Math.ceil((state.retryAfterSeconds ?? 0) / 60));
 
   return (
-    <section id="contact" className="bg-blue-700 py-20 text-white sm:py-28">
-      <div className="site-shell grid gap-12 lg:grid-cols-[.8fr_1.2fr] lg:gap-16">
-        <div>
+    <section id="contact" data-motion-section className="bg-blue-700 py-16 text-white sm:py-24 lg:py-28">
+      <div className="site-shell grid gap-10 lg:grid-cols-[.8fr_1.2fr] lg:gap-16">
+        <div data-motion-item className="min-w-0">
           <p className="text-sm font-black uppercase tracking-[0.18em] text-orange-300">{t('eyebrow')}</p>
-          <h2 className="font-display mt-4 text-balance text-4xl tracking-tight sm:text-6xl">{t('title')} {t('titleHighlight')}</h2>
-          <p className="mt-6 max-w-xl text-lg leading-8 text-blue-100">{t('subtitle')}</p>
-          <div className="mt-12 space-y-5 border-t border-white/20 pt-8">
+          <h2 className="font-display mt-4 text-balance text-3xl tracking-tight sm:text-5xl lg:text-6xl">{t('title')} {t('titleHighlight')}</h2>
+          <p className="mt-5 max-w-xl text-base leading-7 text-blue-100 sm:mt-6 sm:text-lg sm:leading-8">{t('subtitle')}</p>
+          <div className="mt-9 space-y-5 border-t border-white/20 pt-7 sm:mt-12 sm:pt-8">
             <a href="mailto:hello@eldoradotech.com" className="group flex min-h-14 items-center gap-4 rounded-xl text-blue-50 transition-colors hover:text-white">
-              <span className="grid h-12 w-12 place-items-center rounded-xl bg-white/10"><svg aria-hidden="true" className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 6h18v12H3z" /><path d="m3 7 9 6 9-6" /></svg></span>
-              <span><span className="block text-xs font-bold uppercase tracking-[0.12em] text-blue-200">{t('emailTitle')}</span><span className="mt-1 block font-semibold">hello@eldoradotech.com</span></span>
+              <span className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-white/10"><svg aria-hidden="true" className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 6h18v12H3z" /><path d="m3 7 9 6 9-6" /></svg></span>
+              <span className="responsive-copy"><span className="block text-xs font-bold uppercase tracking-[0.12em] text-blue-200">{t('emailTitle')}</span><span className="mt-1 block font-semibold">hello@eldoradotech.com</span></span>
             </a>
             <div className="flex items-center gap-4">
-              <span className="grid h-12 w-12 place-items-center rounded-xl bg-white/10"><svg aria-hidden="true" className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z" /><circle cx="12" cy="10" r="2.5" /></svg></span>
-              <span><span className="block text-xs font-bold uppercase tracking-[0.12em] text-blue-200">{t('officeTitle')}</span><span className="mt-1 block font-semibold">{t('officeAddress')}</span></span>
+              <span className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-white/10"><svg aria-hidden="true" className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z" /><circle cx="12" cy="10" r="2.5" /></svg></span>
+              <span className="responsive-copy"><span className="block text-xs font-bold uppercase tracking-[0.12em] text-blue-200">{t('officeTitle')}</span><span className="mt-1 block font-semibold">{t('officeAddress')}</span></span>
             </div>
           </div>
         </div>
 
-        <div className="rounded-3xl bg-white p-6 text-slate-900 shadow-[0_28px_80px_rgba(15,23,42,0.28)] sm:p-9">
+        <div data-motion-item className="min-w-0 rounded-3xl bg-white p-5 text-slate-900 shadow-[0_28px_80px_rgba(15,23,42,0.28)] sm:p-9">
           <h3 className="text-2xl font-extrabold tracking-tight">{t('infoTitle')}</h3>
           <p className="mt-2 text-sm leading-6 text-slate-600">{t('infoDesc')}</p>
 

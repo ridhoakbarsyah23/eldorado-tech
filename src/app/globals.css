@@ -64,9 +64,14 @@ input[type="checkbox"] {
 }
 
 .site-shell {
-  width: calc(100% - 2rem);
+  width: min(calc(100% - 2rem), 76rem);
   max-width: 76rem;
   margin-inline: auto;
+}
+
+.responsive-copy {
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 
 .editorial-grid {
@@ -79,6 +84,12 @@ input[type="checkbox"] {
 
 .text-balance {
   text-wrap: balance;
+}
+
+@media (max-width: 374px) {
+  .site-shell {
+    width: calc(100% - 1.25rem);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
