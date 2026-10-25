@@ -2,8 +2,26 @@ import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 import { marked } from 'marked';
+import sanitizeHtml from 'sanitize-html';
 
 const contentDir = path.join(process.cwd(), 'src/content/blog');
+const allowedBlogTags = [...sanitizeHtml.defaults.allowedTags, 'img'];
+
+const blogSanitizeOptions = {
+  allowedTags: allowedBlogTags,
+  allowedAttributes: {
+    a: ['href', 'title'],
+    img: ['src', 'srcset', 'alt', 'title', 'width', 'height', 'loading'],
+  },
+  allowedSchemes: ['http', 'https', 'mailto'],
+  allowProtocolRelative: false,
+  enforceHtmlBoundary: true,
+};
+
+export async function renderBlogMarkdown(content: string) {
+  const rawHtml = await marked.parse(content);
+  return sanitizeHtml(rawHtml, blogSanitizeOptions);
+}
 
 export interface BlogPost {
   slug: string;
@@ -37,7 +55,7 @@ export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
     const fileContents = fs.readFileSync(fullPath, 'utf8');
     const { data, content } = matter(fileContents);
     
-    const contentHtml = await marked.parse(content);
+    const contentHtml = await renderBlogMarkdown(content);
 
     // Format date string safely whether it comes as Date object or string from gray-matter
     const dateStr = data.date instanceof Date 
