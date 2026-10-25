@@ -17,16 +17,16 @@ export default function ServicesSection() {
   ];
 
   return (
-    <section id="services" className="bg-[#f8fafc] py-20 sm:py-28">
+    <section id="services" data-motion-section className="bg-[#f8fafc] py-16 sm:py-24 lg:py-28">
       <div className="site-shell">
-        <div className="max-w-3xl">
+        <div data-motion-item className="max-w-3xl">
           <p className="text-sm font-black uppercase tracking-[0.18em] text-blue-700">Capabilities</p>
-          <h2 className="font-display mt-4 text-balance text-4xl tracking-tight text-slate-950 sm:text-6xl">{t('title')}</h2>
-          <p className="mt-5 text-lg leading-8 text-slate-600">{t('subtitle')}</p>
+          <h2 className="font-display mt-4 text-balance text-3xl tracking-tight text-slate-950 sm:text-5xl lg:text-6xl">{t('title')}</h2>
+          <p className="mt-5 text-base leading-7 text-slate-600 sm:text-lg sm:leading-8">{t('subtitle')}</p>
         </div>
         <div className="mt-12 grid gap-5 lg:grid-cols-3">
           {services.map(([title, description], index) => (
-            <article key={title} className={`group relative overflow-hidden rounded-3xl border p-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_22px_50px_rgba(15,23,42,0.1)] sm:p-8 ${index === 0 ? 'border-blue-700 bg-blue-700 text-white' : 'border-slate-200 bg-white text-slate-950'}`}>
+            <article data-motion-item key={title} className={`group relative overflow-hidden rounded-3xl border p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_22px_50px_rgba(15,23,42,0.1)] sm:p-8 ${index === 0 ? 'border-blue-700 bg-blue-700 text-white' : 'border-slate-200 bg-white text-slate-950'}`}>
               <div className={`grid h-14 w-14 place-items-center rounded-2xl [&>svg]:h-7 [&>svg]:w-7 ${index === 0 ? 'bg-white/14 text-white' : 'bg-blue-50 text-blue-700'}`}>{icons[index]}</div>
               <p className={`mt-10 font-mono text-xs font-bold tracking-[0.16em] ${index === 0 ? 'text-blue-200' : 'text-slate-400'}`}>0{index + 1}</p>
               <h3 className="mt-3 text-2xl font-extrabold tracking-tight">{title}</h3>

@@ -19,15 +19,15 @@ export default function Navbar() {
   }, []);
 
   return (
-    <header className={`fixed inset-x-0 top-0 z-[100] transition-all duration-200 ${scrolled ? 'py-2' : 'py-4'}`}>
+    <header className={`fixed inset-x-0 top-0 z-[100] transition-all duration-200 ${scrolled ? 'py-2' : 'py-2.5 sm:py-4'}`}>
       <nav aria-label="Main navigation" className="site-shell">
-        <div className={`flex h-16 items-center justify-between rounded-2xl border px-3 shadow-[0_12px_40px_rgba(15,23,42,0.08)] backdrop-blur-xl transition-colors sm:px-4 ${scrolled ? 'border-slate-200/90 bg-white/95' : 'border-white/80 bg-white/80'}`}>
+        <div className={`flex h-14 items-center justify-between rounded-2xl border px-2.5 shadow-[0_12px_40px_rgba(15,23,42,0.08)] backdrop-blur-xl transition-colors sm:h-16 sm:px-4 ${scrolled ? 'border-slate-200/90 bg-white/95' : 'border-white/80 bg-white/80'}`}>
           <Link
             href="/"
-            className="group flex min-h-11 items-center gap-3 rounded-xl px-2"
+            className="group flex min-h-11 min-w-0 items-center rounded-xl sm:px-2"
             aria-label="Eldorado Tech home"
           >
-            <span aria-hidden="true" className="relative h-12 w-32 overflow-hidden rounded-xl bg-white shadow-[0_8px_20px_rgba(29,78,216,0.12)] ring-1 ring-slate-200/70 transition-transform duration-200 group-hover:-rotate-1">
+            <span aria-hidden="true" className="relative h-10 w-28 overflow-hidden rounded-lg bg-white shadow-[0_8px_20px_rgba(29,78,216,0.12)] ring-1 ring-slate-200/70 transition-transform duration-200 group-hover:-rotate-1 sm:h-12 sm:w-32 sm:rounded-xl">
               <Image
                 src="/logo.png"
                 alt=""
@@ -74,7 +74,7 @@ export default function Navbar() {
         </div>
 
         {isOpen && (
-          <div id="mobile-navigation" className="mt-2 rounded-2xl border border-slate-200 bg-white p-3 shadow-[0_20px_60px_rgba(15,23,42,0.14)] lg:hidden">
+          <div id="mobile-navigation" className="mt-2 max-h-[calc(100dvh-6.5rem)] overflow-y-auto rounded-2xl border border-slate-200 bg-white p-3 shadow-[0_20px_60px_rgba(15,23,42,0.14)] lg:hidden">
             <div className="grid gap-1">
               <Link href="/#about" onClick={() => setIsOpen(false)} className="rounded-xl px-4 py-3 font-semibold text-slate-700 hover:bg-blue-50 hover:text-blue-700">{t('about')}</Link>
               <Link href="/#services" onClick={() => setIsOpen(false)} className="rounded-xl px-4 py-3 font-semibold text-slate-700 hover:bg-blue-50 hover:text-blue-700">{t('services')}</Link>
