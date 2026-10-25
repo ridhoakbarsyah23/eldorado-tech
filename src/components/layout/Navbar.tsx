@@ -1,6 +1,7 @@
 'use client';
 
 import { Link } from '@/i18n/routing';
+import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 import LanguageSwitcher from '../ui/LanguageSwitcher';
@@ -26,8 +27,15 @@ export default function Navbar() {
             className="group flex min-h-11 items-center gap-3 rounded-xl px-2"
             aria-label="Eldorado Tech home"
           >
-            <span aria-hidden="true" className="grid h-9 w-9 place-items-center rounded-xl bg-blue-700 text-xs font-black tracking-[-0.08em] text-white shadow-[0_8px_20px_rgba(29,78,216,0.25)] transition-transform duration-200 group-hover:-rotate-3">ET</span>
-            <span className="hidden text-sm font-extrabold tracking-[0.12em] text-slate-950 sm:block">ELDORADO <span className="text-blue-700">TECH</span></span>
+            <span aria-hidden="true" className="relative h-12 w-32 overflow-hidden rounded-xl bg-white shadow-[0_8px_20px_rgba(29,78,216,0.12)] ring-1 ring-slate-200/70 transition-transform duration-200 group-hover:-rotate-1">
+              <Image
+                src="/logo.png"
+                alt=""
+                fill
+                sizes="128px"
+                className="object-cover object-[center_47%]"
+              />
+            </span>
           </Link>
 
           <div className="hidden items-center gap-1 lg:flex">
