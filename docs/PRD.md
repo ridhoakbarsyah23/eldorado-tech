@@ -3,193 +3,231 @@
 | | |
 |---|---|
 | **Produk** | Situs marketing Eldorado Tech + dashboard CRM demo |
-| **Versi dokumen** | 1.0 |
+| **Versi dokumen** | 1.1 |
 | **Tanggal** | 25 Oktober 2026 |
 | **Status** | Aktif |
-| **Owner** | Ridho Akbar Syah |
+| **Owner** | Eldorado Tech |
 
-> PRD ini disusun berdasarkan kondisi aktual kode di repo, bukan rencana yang belum diimplementasikan. Status setiap fitur: ✅ rilis · 🚧 parsial · 🔜 backlog.
+> Dokumen ini merangkum kondisi aktual kode di repo. Untuk developer: mulai dari **§2 Peta Kode** untuk tahu file mana yang dikerjakan. Status fitur: ✅ selesai · 🚧 parsial · 🔜 backlog.
 
 ---
 
 ## 1. Ringkasan Produk
 
-### 1.1 Visi
-Eldorado Tech adalah **software house berbasis di Purwokerto**. Situs ini adalah etalase digital utama untuk menghasilkan **proyek inbound**: calon klien menemukan layanan, meyakini kualitas, lalu menghubungi tim melalui formulir kontak atau WhatsApp.
-
-### 1.2 Masalah yang Diselesaikan
-1. Calon klien lokal sulit menilai kredibilitas software house tanpa etalase portofolio yang meyakinkan.
-2. Prospek masuk tersebar melalui kanal informal (DM, telepon, WA pribadi) sehingga sulit dilacak.
-3. Konten (blog) dan referensi layanan butuh kanal tunggal yang mudah dikelola.
-
-### 1.3 Solusi
-Situs publik dwibahasa (ID/EN) bernuansa konversi + dashboard CRM internal (saat ini **demo**) sebagai fondasi pipeline penjualan.
+Eldorado Tech adalah software house di Purwokerto. Situs ini berfungsi untuk menarik calon klien (inbound): mereka melihat layanan dan portofolio, lalu menghubungi tim lewat formulir kontak atau WhatsApp. Ada juga `/crm` — dashboard internal untuk mengelola leads dan klien, saat ini masih **demo dengan data dummy**.
 
 ---
 
-## 2. Tujuan & Metrik Keberhasilan
+## 2. Peta Kode (fitur → file)
+
+Developer baru mulai dari sini:
+
+| Modul | File kunci |
+|---|---|
+| Layout publik + i18n | `src/app/[locale]/layout.tsx`, `src/i18n/routing.ts`, `src/i18n/request.ts` |
+| Teks UI (ID/EN) | `messages/id.json`, `messages/en.json` (diakses via `useTranslations`) |
+| Section halaman depan (Hero, About, Services, dst.) | `src/app/[locale]/page.tsx` + `src/components/sections/*` |
+| Navbar & Footer | `src/components/layout/{Navbar,Footer}.tsx` |
+| Animasi scroll | `src/components/ui/MarketingMotion.tsx` (elemen ditandai `data-motion-*`) |
+| Blog | `src/lib/blog.ts` (parser Markdown) + `src/content/blog/*.md` + `src/app/[locale]/blog/**` |
+| Form kontak | `src/app/actions/contact.ts` (Server Action + validasi), `src/lib/rate-limit.ts`, UI di `sections/ContactSection.tsx` |
+| CRM | `src/app/[locale]/crm/**`, komponen di `src/components/crm/{Sidebar,Topbar}.tsx` |
+| CMS (Decap) | `public/admin/{config.yml,index.html}` — backend belum aktif |
+| SEO | `src/app/robots.ts`, `src/app/sitemap.ts`, `src/app/[locale]/opengraph-image.tsx` |
+| Style global & utilitas | `src/app/globals.css` (`.site-shell`, `.responsive-copy`) |
+
+Daftar env variables:
+
+| Variabel | Fungsi | Wajib? |
+|---|---|---|
+| `NEXT_PUBLIC_SITE_URL` | Domain kanonikal untuk metadata, sitemap, robots | Ya (default `eldoradotech.com`) |
+| `CONTACT_FORM_ENDPOINT` | URL Formspree untuk relay leads | Ya di produksi — tanpa ini form menampilkan error konfigurasi |
+| `NEXT_PUBLIC_WHATSAPP_NUMBER` | Nomor WA untuk CTA melayang | Opsional (kosong = tombol disembunyikan) |
+
+Perintah yang biasa dipakai:
+
+```bash
+npm install        # install dependensi
+npm run dev        # jalankan dev server
+npm run build      # build produksi (sudah termasuk type-check)
+npx eslint .       # lint
+```
+
+---
+
+## 3. Tujuan & Metrik
 
 | Tujuan | Metrik | Target awal |
 |---|---|---|
-| Menghasilkan prospek inbound | Kiriman formulir kontak yang valid / bulan | ≥ 10 |
-| Kanal kontak alternatif | Klik CTA WhatsApp / bulan | ≥ 20 |
-| Kredibilitas & brand | Peringkat kata kunci lokal (contoh: "software house Purwokerto") | Top 10 |
+| Menarik prospek inbound | Kiriman formulir valid / bulan | ≥ 10 |
+| Kanal kontak berbasis WA | Klik CTA WhatsApp / bulan | ≥ 20 |
+| Terindeks di mesin pencari | Peringkat kata kunci lokal, misal "software house Purwokerto" | Top 10 |
 | Kualitas situs | Skor Lighthouse (Perf, SEO, A11y, Best Practices) | ≥ 90 |
-| Konten edukasi | Artikel blog tayang / bulan | ≥ 2 |
+| Konten edukasi | Artikel blog baru / bulan | ≥ 2 |
 
 ---
 
-## 3. Target Pengguna
+## 4. Target Pengguna
 
-| Persona | Deskripsi | Need utama |
-|---|---|---|
-| **Pemilik UMKM / bisnis lokal** | Ingin website/aplikasi, minim istilah teknis | Jawaban cepat "berapa & berapa lama" lewat kontak |
-| **Manajer/direktur menengah** (Jawa Tengah–Barat) | Mencari vendor serius, bandingkan beberapa | Portofolio, bukti proses, profil perusahaan |
-| **Pembaca blog** | Riset sebelum memutuskan | Artikel edukatif yang mengarahkan ke CTA |
-| **Tim internal Eldorado** | Mengelola prospek & klien | CRM ringkas tanpa perlu SaaS berbayar (demokan dulu) |
+| Persona | Kebutuhan utamanya |
+|---|---|
+| Pemilik UMKM / bisnis lokal | Cepat tahu "berapa dan berapa lama" → kontak |
+| Calon klien menengah (pembanding vendor) | Portofolio dan bukti proses kerja |
+| Pembaca blog | Konten edukatif yang mengarah ke CTA |
+| Tim internal Eldorado | CRM ringkas untuk memantau leads/klien |
 
 ---
 
-## 4. Ruang Lingkup Fitur
+## 5. Fitur & Status
 
-### 4.1 Situs Publik (Marketing)
+### 5.1 Situs publik
 
-| Fitur | Status | Catatan |
+| Fitur | Status | Lokasi / catatan |
 |---|---|---|
-| Hero dengan mockup produk & CTA ganda | ✅ | Mockup "screenshot" dashboard CRM Aplikasi |
-| Tentang, Layanan (3 kartu), Portofolio (3 kartu) | ✅ | Foto portofolio masih Unsplash — 🔜 ganti foto proyek asli |
-| FAQ accordion | ✅ | 4 pertanyaan |
-| CTA mengambang WhatsApp | ✅ | Hanya muncul jika `NEXT_PUBLIC_WHATSAPP_NUMBER` diset |
-| Animasi scroll (GSAP) | ✅ | Menghormati `prefers-reduced-motion` |
-| Responsif penuh desktop ↔ mobile | ✅ | Selesai pada 25 Okt 2026 |
-| Testimoni pelanggan | 🔜 | Belum ada, prioritas tinggi untuk kredibilitas |
+| Hero dengan mockup dashboard + 2 CTA | ✅ | `sections/HeroSection.tsx` — mockup dibangun dengan JSX, bukan gambar |
+| About, Services (3 kartu), Portfolio (3 kartu), FAQ, Newsletter, Footer | ✅ | `src/components/sections/*` |
+| Portfolio memakai foto Unsplash | 🔜 | Ganti dengan foto/screenshot proyek asli (Fase 1) |
+| Testimoni pelanggan | 🔜 | Belum ada — bagian paling berdampak untuk kredibilitas |
+| CTA WhatsApp melayang | ✅ | `ui/WhatsAppCta.tsx`, hanya muncul jika env WA terisi |
+| Animasi scroll (GSAP) | ✅ | `ui/MarketingMotion.tsx`; otomatis mati untuk `prefers-reduced-motion` |
+| Responsif desktop ↔ mobile | ✅ | Selesai 25 Okt 2026; pola di §9 |
 
-### 4.2 Blog
+### 5.2 Blog
 
-| Fitur | Status | Catatan |
+| Fitur | Status | Lokasi / catatan |
 |---|---|---|
-| Daftar artikel + featured post | ✅ | Konten Markdown di `src/content/blog` |
-| Halaman artikel + metadata SEO | ✅ | `marked` + `sanitize-html` (whitelist tag) |
-| Panel CMS (Decap CMS) | 🚧 | Konfigurasi ada di `public/admin/`; backend `git-gateway` belum aktif — 🔜 aktifkan lewat provider deploy yang menyediakan autentikasi |
+| Daftar artikel + featured | ✅ | `src/app/[locale]/blog/page.tsx`, konten dari `src/content/blog/*.md` |
+| Halaman artikel | ✅ | Render Markdown: `marked` → `sanitize-html` (whitelist tag agar hasilnya aman) |
+| Decap CMS panel | 🚧 | Config di `public/admin/config.yml` (`git-gateway`). Belum aktif karena butuh backend autentikasi di hosting. Lokal saja bisa pakai `local_backend: true` |
 | Kategori/tag & pencarian | 🔜 | Belum ada |
 
-### 4.3 Formulir Kontakt & Anti-Abuse
+### 5.3 Formulir kontak & anti-abuse
+
+Alur: submit → Server Action `submitContact` → validasi → rate limit → POST JSON ke `CONTACT_FORM_ENDPOINT` (Formspree) → redirect ke `/thank-you`.
 
 | Fitur | Status | Catatan |
 |---|---|---|
-| Formulir kontak (nama, email, layanan, pesan) | ✅ | Server Action + validasi sisi server |
-| Relay ke layanan form (Formspree) | ✅ | `CONTACT_FORM_ENDPOINT` (JSON POST) |
-| Anti-abuse lengkap | ✅ | Honeypot, rate limit **5 pengiriman / 15 menit** per-IP (hash SHA-256), pesan khusus "coba lagi" |
-| Halaman thank-you dwibahasa | ✅ | `/{locale}/thank-you` |
-| Failover | ✅ | Jika endpoint tidak dikonfigurasi → tampil pesan konfigurasi + fallback mailto |
-| Penyimpanan log pengiriman | 🔜 | Pengiriman hanya relay; tidak menyimpan salinan |
+| Server Action + validasi sisi server | ✅ | `src/app/actions/contact.ts`; opsi layanan divalidasi pakai whitelist `supportedServices` |
+| Anti-abuse | ✅ | Honeypot (`website`), batas **5 kirim / 15 menit** per IP (hash SHA-256), respons dengan `retryAfterSeconds` |
+| Redirect aman | ✅ | Honeypot terisi → redirect ke `/{locale}/thank-you` tanpa memproses |
+| Error dibedakan | ✅ | `validation` / `rate-limit` / `configuration` / `submission` masing-masing punya pesan |
+| Fallback mailto | ✅ | Tampil saat status `configuration` atau `submission` |
+| Menyimpan salinan leads | 🔜 | Saat ini form tidak menyimpan apa pun, hanya relay (Fase 2 ke DB CRM) |
 
-### 4.4 CRM Demo (internal, `/crm`)
-
-| Fitur | Status | Catatan |
-|---|---|---|
-| Ringkasan statistik + lead terbaru + fokus hari ini | ✅ | Data masih **hardcode demo** |
-| Daftar Leads & Klien dengan pencarian | ✅ | Responsif: kartu pada mobile, tabel pada desktop |
-| Filter/status tabs di Leads | 🔜 | Ada search tapi belum menyaring berdasarkan status |
-| Autentikasi & database (Leads/Klien nyata) | 🔜 | **Prasyarat sebelum dipakai untuk data nyata** — saat ini `robots.ts` menonaktifkan indeks `/{locale}/crm/`, tapi URL tetap dapat diakses langsung |
-| Aksi create/edit lead & tindak lanjut | 🔜 | |
-
-### 4.5 i18n & SEO
+### 5.4 CRM (internal, `/crm`)
 
 | Fitur | Status | Catatan |
 |---|---|---|
-| Dwibahasa ID/EN via `next-intl` | ✅ | Locale switcher di Navbar, hash-preserve |
-| Metadata per halaman, Open Graph, og:image dinamis | ✅ | `opengraph-image.tsx` |
-| `sitemap.xml` & `robots.txt` | ✅ | `disallow`: `/api/`, `/admin/`, `/{locale}/crm/` |
-| Penanda schema.org (LocalBusiness) | 🔜 | |
+| Overview (statistik, recent leads, today's focus) | ✅ | Data **hardcode dummy** di `crm/page.tsx` |
+| Halaman **Leads** dan **Clients** dengan pencarian | ✅ | `crm/{leads,clients}/page.tsx`, pencarian client-side (`setState`) |
+| Layout responsif: kartu di mobile, tabel di desktop | ✅ | Pola `md:hidden` / `hidden md:block` — lihat §9 |
+| Filter berdasarkan status | 🔜 | Pelengkap tab filter di Leads |
+| CRUD create/edit lead + follow-up | 🔜 | |
+| Autentikasi admin + database | 🔜 | **Risiko keamanan** — saat ini `/crm/**` bebas diakses. `robots.ts` sudah membuat halaman `noindex`, tapi itu bukan proteksi. Wajib dilindungi sebelum dipakai untuk data nyata |
 
-### 4.6 Infrastruktur & Env
+### 5.5 i18n & SEO
 
 | Fitur | Status | Catatan |
 |---|---|---|
-| `.env.example` | ✅ | `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_WHATSAPP_NUMBER`, `CONTACT_FORM_ENDPOINT`, rate-limit |
-| CI/CD & hosting | 🚧 | Versi belum dibakukan di pipeline; repo deploy ke branch `dev` → perlu alur merge ke `main` |
+| Routing + teks dwibahasa ID/EN | ✅ | `next-intl`: routing di `src/i18n/routing.ts`, teks di `messages/*.json` |
+| Locale switcher | ✅ | `ui/LanguageSwitcher.tsx` (menyimpan URL hash) |
+| Metadata per halaman + OG image dinamis | ✅ | `opengraph-image.tsx` |
+| sitemap & robots | ✅ | `robots.ts` disallow: `/api/`, `/admin/`, `/{locale}/crm/` |
+| Schema.org `LocalBusiness` | 🔜 | Untuk membantu indeks lokal |
+
+Catatan i18n untuk developer: teks UI di marketing & form pakai `messages/*.json`. Teks di **CRM dan mockup Hero** masih hardcoded bahasa Inggris — konsisten, tidak membutuhkan terjemahan.
 
 ---
 
-## 5. Non-Goals (dalam lingkup rilis saat ini)
+## 6. Yang Tidak Dikerjakan (Non-Goals)
 
-- **Mesin pencari situs** lebih dari header pencarian sederhana di blog.
-- **Portal klien** (login klien untuk pantau proyek).
-- **Moderator konten** pihak ketiga di blog (CMS bare-bones cukup dahulu).
-- **CRM multi-tenant/SaaS** — selalu single instance internal.
-
----
-
-## 6. Cerita Pengguna Utama
-
-1. Sebagai **calon klien**, Saya melihat layanan dari halaman depan, klik "Mulai Proyek", mengisi formulir, dan menerima halaman thank-you — tanpa harus bingung istilah teknis.
-2. Sebagai **calon klien di HP**, Saya membuka situs di ponsel dan seluruh bagian terlihat nyaman tanpa harus di-zoom.
-3. Sebagai **penulis blog**, Saya menulis artikel markdown didedikasi ke `src/content/blog` dan mempublikasikan tanpa menyesuaikan kode.
-4. Sebagai **admin**, Saya membuka `/crm/leads`, mencari perusahaan, dan melihat status + nilai estimasi pada layar manapun (desktop atau ponsel).
-5. Sebagai **penyerang**, percobaan spam formulir Saya ditolak (honeypot), dibatasi (rate limit), atau gagal secara diam (log konfigurasi tidak dicek dalam kebocoran).
+- Mesin pencari situs yang kompleks; **full-text search blog** sederhana sampai dibutuhkan.
+- Portal klien (login untuk memantau proyek).
+- Kustomisasi CMS berat (Decap bare-bones cukup).
+- CRM multi-tenant / SaaS — hanya instance internal tunggal.
 
 ---
 
-## 7. Persyaratan Non-Fungsional
+## 7. Cerita Pengguna Utama
 
-| Area | Persyaratan |
+1. Sebagai calon klien: klik "Mulai Proyek" di hero, isi formulir, dapat halaman thank-you.
+2. Sebagai calon klien di ponsel: semua section nyaman dibaca tanpa zoom.
+3. Sebagai penulis blog: tambah file Markdown baru di `src/content/blog/`, artikel muncul — tanpa menyentuh kode.
+4. Sebagai admin: buka `/crm/leads`, cari perusahaan, lihat status dan nilai estimasi di desktop maupun ponsel.
+5. Sebagai penyerang: spam diblokir oleh honeypot / rate limit, dan error internal tidak membocorkan detail.
+
+---
+
+## 8. Persyaratan Non-Fungsional
+
+| Area | Aturan |
 |---|---|
-| Responsif | Tidak ada scroll horizontal pada semua lebar ≥ 320px; target 360 / 768 / 1024 / 1440 |
-| Aksesibilitas | Kontras AA, target sentuh ≥ 44px, navigasi keyboard penuh, `aria-*` di semua komponen interaktif |
-| Performa | Tanpa layout shift; gambar via `next/image` + `sizes`; font via `next/font` |
-| Keamanan | Validasi + sanitasi di server; tanpa `dangerouslySetInnerHTML` kecuali artikel yang tersanitasi; rate limit kontak |
-| Privasi CRM demo | URL `/crm/**` `noindex`; sebelum data nyata dipakai, **wajib** ditambah autentikasi |
-| Kualitas kode | `tsc --noEmit` 0 error, `eslint` 0 warning, `next build` sukses sebelum merge |
+| Responsif | Tidak ada scroll horizontal mulai lebar **320px**; uji di 360 / 768 / 1024 / 1440 |
+| Aksesibilitas | Kontras AA, target sentuh ≥ 44px (`min-h-11`), navigasi keyboard penuh, `aria-*` di elemen interaktif |
+| Performa | Gambar lewat `next/image` dengan `sizes`, font lewat `next/font`, hindari layout shift |
+| Keamanan | Validasi/sanitasi di server; `dangerouslySetInnerHTML` hanya untuk HTML blog yang sudah lewat `sanitize-html`; rate limit kontak aktif |
+| CRM | `/crm/**` jangan diindeks; **jangan isi data nyata sampai ada auth + DB** |
+| Kualitas sebelum merge | `npm run build` sukses (termasuk tsc) + `npx eslint .` tanpa error |
 
 ---
 
-## 8. Roadmap
+## 9. Konvensi Gaya & Pola Responsif
 
-### Fase 0 — Diluncurkan (sekarang) ✅
-Situs dwibahasa penuh, blog, kontak anti-abuse, CRM demo responsif, SEO dasar, animasi GSAP.
+Info berguna biar konsisten saat menambah UI:
 
-### Fase 1 — Kredibilitas & Konversi (short-term, P1)
-1. **Testimoni pelanggan** di halaman publik.
-2. Ganti foto Unsplash menjadi foto proyek screenshot asli + case study 1 halaman.
-3. **Filter status tabs** di halaman Leads (pelengkap pencarian).
-4. Aktifkan backend CMS (Decap) di hosting produksi.
-5. Schema.org LocalBusiness.
-
-### Fase 2 — CRM Nyata (mid-term, P1.5)
-1. Autentikasi admin (auth) + proteksi route `/crm/**`.
-2. Database (misal Prisma + SQLite/Postgres) untuk Leads/Klien.
-3. Aksi create/edit lead & riwayat tindak lanjut.
-4. Pengiriman formulir kontak lebih lanjut ke CRM (bukan hanya webhook eksternal).
-
-### Fase 3 — Skala (long-term, P2)
-1. Analisis (Plausible/GA) + tracking konversi per CTA.
-2. Newsletter sungguhan (saat ini tombol hanya ke blog).
-3. Halaman layanan per-kategori (bukan hanya kartu).
+- Warna brand utama: **blue `#1d4ed8` (primary)** dan **orange `#ea580c` (accent)**, latar terang `#f8fafc`. Terpusat di `:root` `globals.css`.
+- Semua section pakai lebar container `.site-shell` (max 76rem, terpusat).
+- Email / teks panjang yang harus bisa patah di titik mana saja (mis. URL) → bungkus dengan `.responsive-copy` supaya tidak meluber.
+- Pola tabel responsif di CRM: **kartu (mobile)** `md:hidden` + **tabel (desktop)** `hidden md:block`.
+- Ikon: inline SVG `stroke="currentColor"` — tidak memakai library ikon.
+- Animasi: tandai elemen `data-motion-item` (atau `data-motion-hero-item` untuk hero) di dalam section `data-motion-section`, lalu GSAP di `MarketingMotion.tsx` yang memproses.
+- Font: Inter (sans), Calistoga (display, class `font-display`), Geist Mono (`font-mono`).
 
 ---
 
-## 9. Teknologi & Keterbatasan yang Diketahui
+## 10. Roadmap
 
-**Stack:** Next.js 16 (App Router, Server Actions) · React 19 · TypeScript · Tailwind CSS 4 · `next-intl` · GSAP · Markdown (`gray-matter` + `marked` + `sanitize-html`) · Decap CMS (terekonfigurasi, backend belum aktif).
+### Fase 0 — Rilis awal ✅ (sekarang)
+Situs dwibahasa, blog, kontak anti-abuse, CRM demo responsif, SEO dasar, animasi.
 
-**Keterbatasan dipertimbangkan saat pengambilan keputusan:**
-1. **Rate limit kontak berbasis memori** (`src/lib/rate-limit.ts`, 5/15 menit, hardcode) — counter ikut hilang saat serverless cold start dan tidak di-share antar instance. Untuk sekarang cukup; saat trafik naik, alihkan ke penyimpanan persisten (Upstash/KV).
-2. **CRM demo menampilkan data fiktif** — jangan pernah nampilin data pelanggan nyata sebelum Phase 2 (auth + DB).
-3. **Endpoint kontak eksternal** — endpoint konfigurasi berasal dari ENV, jadi baru dipandang aman setelah `CONTACT_FORM_ENDPOINT` diset di produksi.
-4. **Decap CMS** butuh backend auth (Git Gateway/Netlify Identity atau solusi equivalen) — sedang beroperasi hanya via `local_backend` untuk saat ini.
+### Fase 1 — Kredibilitas & konversi (P1)
+1. Testimoni pelanggan di halaman publik.
+2. Ganti foto Unsplash dengan foto proyek asli.
+3. Filter status tabs di halaman Leads.
+4. Aktivasi backend Decap CMS di hosting produksi.
+5. Schema.org `LocalBusiness`.
+
+### Fase 2 — CRM nyata (P1.5)
+1. Autentikasi admin + proteksi route `/crm/**`.
+2. Database (misal Prisma + SQLite/Postgres) untuk Leads & Klien.
+3. Create/edit lead + riwayat follow-up.
+4. Kirim data formulir kontak ke DB CRM (bukan hanya Formspree).
+
+### Fase 3 — Skala (P2)
+1. Analytics (Plausible/GA) + tracking konversi per CTA.
+2. Newsletter beneran (sekarang tombolnya hanya ke blog).
+3. Halaman layanan perkategori (bukan hanya kartu).
 
 ---
 
-## 10. Keputusan Terbuka
+## 11. Keterbatasan Teknologi yang Harus Dipahami
 
-| # | Pertanyaan | Pemilik |
+1. **Rate limit berbasis memori** (`src/lib/rate-limit.ts`, 5/15 menit). Counternya hidup di RAM proses: hilang saat server restart/cold start dan tidak di-share antar instance serverless. Cukup untuk sekarang; kalau trafik naik, pindahkan ke storage persisten (Upstash/KV).
+2. **CRM masih demo** — semua data di-hardcode di file halaman. Jangan pernah beri data pelanggan nyata sebelum Fase 2 (auth + DB).
+3. **Rate limit & contact form** bergantung env — baru jalan sempurna di produksi setelah `CONTACT_FORM_ENDPOINT` diisi.
+4. **Decap CMS** butuh autentikasi (Git Gateway/Netlify Identity atau setara) — config repo siap, backend belum terpasang.
+
+---
+
+## 12. Keputusan Terbuka
+
+| # | Pertanyaan | PIC |
 |---|---|---|
-| 1 | Deploy apa yang aktif saat ini (Vercel? Netlify?) — menentukan strategi CMS & rate limit | Ridho |
-| 2 | Apakah data kontak juga perlu disimpan sendiri, atau cukup di webhook (Make/Zapier/Sheets)? | Ridho |
-| 3 | Kapan CRM demo diubah jadi nyata (auth + DB)? | Tim |
-| 4 | Siapa pengguna pertama CRM internal? | Tim |
+| 1 | Hosting mana yang dipakai saat ini (Vercel? Netlify?) — menentukan strategi CMS & rate limit | Tim Eldorado Tech |
+| 2 | Data kontak cukup lewat Formspree, atau perlu disimpan sendiri ke DB CRM? | Tim Eldorado Tech |
+| 3 | Kapan CRM demo diubah jadi nyata (auth + DB)? | Tim Eldorado Tech |
+| 4 | Siapa pengguna CRM internal setelah jadi nyata? | Tim Eldorado Tech |
 
 ---
 
-*PRD ini sebaiknya diperbarui setiap ada rilis besar. Dokumen ini bukan spesifikasi teknis rinci — detail implementasi mengikuti konvensi di repo.*
+*Perbarui PRD ini setiap rilis besar. Spesifikasi detail mengikuti konvensi di §9 dan struktur folder di §2 — kalau PRD dan kode berbeda, kode yang dianggap sumber kebenaran.*
